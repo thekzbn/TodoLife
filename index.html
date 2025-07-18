@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spiritual To-Do List</title>
+    <title>TodoLife</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
     <!-- Authentication Modal -->
     <div id="authModal" class="modal">
         <div class="modal-content">
-            <h2>Welcome to Spiritual To-Do</h2>
+            <h2>Welcome to TodoLife</h2>
             <div id="authContainer">
                 <div id="loginForm">
                     <input type="email" id="email" placeholder="Email" required>
@@ -54,9 +54,9 @@
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <h1 class="app-title">Spiritual To-Do</h1>
+                <h1 class="app-title">TodoLife</h1>
                 <div class="header-controls">
-                    <button id="themeBtn" class="icon-btn" onclick="toggleThemeSelector()">
+                    <button id="themeBtn" class="icon-btn" onclick="openThemeModal()">
                         <span class="material-icons">palette</span>
                     </button>
                     <button id="viewBtn" class="icon-btn" onclick="toggleView()">
@@ -67,34 +67,16 @@
                     </button>
                 </div>
             </div>
-            
-            <!-- Theme Selector -->
-            <div id="themeSelector" class="theme-selector" style="display: none;">
-                <div class="theme-grid">
-                    <button class="theme-option" data-theme="default-light">Default Light</button>
-                    <button class="theme-option" data-theme="default-dark">Default Dark</button>
-                    <button class="theme-option" data-theme="ocean-light">Ocean Light</button>
-                    <button class="theme-option" data-theme="navy-dark">Navy Dark</button>
-                    <button class="theme-option" data-theme="tomato-light">Tomato Light</button>
-                    <button class="theme-option" data-theme="tomato-dark">Tomato Dark</button>
-                    <button class="theme-option" data-theme="mediumsea-light">MediumSea Light</button>
-                    <button class="theme-option" data-theme="mediumsea-dark">MediumSea Dark</button>
-                    <button class="theme-option" data-theme="violet-light">Violet Light</button>
-                    <button class="theme-option" data-theme="violet-dark">Violet Dark</button>
-                    <button class="theme-option" data-theme="orange-light">Orange Light</button>
-                    <button class="theme-option" data-theme="orange-dark">Orange Dark</button>
-                    <button class="theme-option" data-theme="khaki-light">Khaki Light</button>
-                    <button class="theme-option" data-theme="khaki-dark">Khaki Dark</button>
-                    <button class="theme-option" data-theme="tangerine-light">Tangerine Light</button>
-                    <button class="theme-option" data-theme="tangerine-dark">Tangerine Dark</button>
-                    <button class="theme-option" data-theme="greyscale-light">Greyscale Light</button>
-                    <button class="theme-option" data-theme="greyscale-dark">Greyscale Dark</button>
-                    <button class="theme-option" data-theme="ultracolourful">Ultra Colourful</button>
-                    <button class="theme-option" data-theme="sunshine-light">Sunshine Light</button>
-                    <button class="theme-option" data-theme="sunshine-dark">Sunshine Dark</button>
-                </div>
-            </div>
         </header>
+        <!-- Theme Modal -->
+        <div id="themeModal" class="modal" style="display:none; z-index:2000;">
+            <div class="modal-content" style="max-width:700px; width:95%; position:relative;">
+                <button onclick="closeThemeModal()" class="modal-close-btn" aria-label="Close" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:2rem; color:var(--text-secondary); cursor:pointer; z-index:10;">&times;</button>
+                <h2 style="text-align:center;">Select a Theme</h2>
+                <div id="themeCardGrid" class="theme-card-grid"></div>
+                <button onclick="closeThemeModal()" style="margin-top:1rem; width:100%;">Close</button>
+            </div>
+        </div>
 
         <!-- Main Content -->
         <main class="main-content">

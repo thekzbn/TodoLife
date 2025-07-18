@@ -203,6 +203,30 @@ function autoSave(date, data) {
     }, 1000); // Save after 1 second of inactivity
 }
 
+// Save preferred theme to Firestore
+async function savePreferredTheme(themeName) {
+    if (!currentUser) return;
+    try {
+        await db.collection('users').doc(currentUser.uid).set({ preferredTheme: themeName }, { merge: true });
+    } catch (error) {
+        console.error('Error saving preferred theme:', error);
+    }
+}
+
+// Load preferred theme from Firestore
+async function loadPreferredTheme() {
+    if (!currentUser) return null;
+    try {
+        const doc = await db.collection('users').doc(currentUser.uid).get();
+        if (doc.exists && doc.data().preferredTheme) {
+            return doc.data().preferredTheme;
+        }
+    } catch (error) {
+        console.error('Error loading preferred theme:', error);
+    }
+    return null;
+}
+
 // Initialize app after authentication
 function initializeApp() {
     loadTheme();
@@ -240,8 +264,15 @@ function setupEventListeners() {
 }
 
 // Load and apply saved theme
-function loadTheme() {
-    const savedTheme = localStorage.getItem('spiritualTodoTheme') || 'default-light';
+async function loadTheme() {
+    let savedTheme = localStorage.getItem('spiritualTodoTheme') || 'default-light';
+    if (currentUser) {
+        const cloudTheme = await loadPreferredTheme();
+        if (cloudTheme) {
+            savedTheme = cloudTheme;
+            localStorage.setItem('spiritualTodoTheme', cloudTheme);
+        }
+    }
     applyTheme(savedTheme);
 }
 
@@ -250,8 +281,8 @@ function applyTheme(themeName) {
     currentTheme = themeName;
     document.body.setAttribute('data-theme', themeName);
     localStorage.setItem('spiritualTodoTheme', themeName);
-    
-    // Update theme selector buttons
+    if (typeof savePreferredTheme === 'function') savePreferredTheme(themeName);
+    // Update theme selector buttons (if any remain)
     document.querySelectorAll('.theme-option').forEach(btn => {
         btn.classList.remove('active');
         if (btn.getAttribute('data-theme') === themeName) {
@@ -259,3 +290,4 @@ function applyTheme(themeName) {
         }
     });
 }
+window.applyTheme = applyTheme;

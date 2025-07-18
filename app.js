@@ -149,6 +149,112 @@ function toggleView() {
     switchView(views[nextIndex]);
 }
 
+// Theme Modal Logic
+const themes = [
+  {
+    key: 'default-light', name: 'Default Light', accent: '#d6ad60', bg: '#fff', font: 'Inter Tight, sans-serif', fontLabel: 'Inter Tight',
+  },
+  {
+    key: 'default-dark', name: 'Default Dark', accent: '#d6ad60', bg: '#1a1a1a', font: 'Inter Tight, sans-serif', fontLabel: 'Inter Tight',
+  },
+  {
+    key: 'ocean-light', name: 'Ocean Light', accent: '#1e90ff', bg: '#f0f8ff', font: 'Rubik, sans-serif', fontLabel: 'Rubik',
+  },
+  {
+    key: 'navy-dark', name: 'Navy Dark', accent: '#1e90ff', bg: '#0f1419', font: 'IBM Plex Sans, sans-serif', fontLabel: 'IBM Plex Sans',
+  },
+  {
+    key: 'tomato-light', name: 'Tomato Light', accent: '#ff6347', bg: '#fff5f5', font: 'Nunito Sans, sans-serif', fontLabel: 'Nunito Sans',
+  },
+  {
+    key: 'tomato-dark', name: 'Tomato Dark', accent: '#ff4500', bg: '#1a0f0f', font: 'Noto Sans, sans-serif', fontLabel: 'Noto Sans',
+  },
+  {
+    key: 'mediumsea-light', name: 'MediumSea Light', accent: '#3cb371', bg: '#f0fff4', font: 'Open Sans, sans-serif', fontLabel: 'Open Sans',
+  },
+  {
+    key: 'mediumsea-dark', name: 'MediumSea Dark', accent: '#2e8b57', bg: '#0f1a14', font: 'Mulish, sans-serif', fontLabel: 'Mulish',
+  },
+  {
+    key: 'violet-light', name: 'Violet Light', accent: '#8a2be2', bg: '#faf5ff', font: 'Lato, sans-serif', fontLabel: 'Lato',
+  },
+  {
+    key: 'violet-dark', name: 'Violet Dark', accent: '#6a0dad', bg: '#1a0f1a', font: 'Source Sans 3, sans-serif', fontLabel: 'Source Sans 3',
+  },
+  {
+    key: 'orange-light', name: 'Orange Light', accent: '#ffa500', bg: '#fffaf0', font: 'PT Sans, sans-serif', fontLabel: 'PT Sans',
+  },
+  {
+    key: 'orange-dark', name: 'Orange Dark', accent: '#cc8400', bg: '#1a1408', font: 'Manrope, sans-serif', fontLabel: 'Manrope',
+  },
+  {
+    key: 'khaki-light', name: 'Khaki Light', accent: '#f0e68c', bg: '#fefcbf', font: 'Assistant, sans-serif', fontLabel: 'Assistant',
+  },
+  {
+    key: 'khaki-dark', name: 'Khaki Dark', accent: '#bca869', bg: '#1a1810', font: 'Raleway, sans-serif', fontLabel: 'Raleway',
+  },
+  {
+    key: 'tangerine-light', name: 'Tangerine Light', accent: '#ffcc00', bg: '#fffff0', font: 'Inter, sans-serif', fontLabel: 'Inter',
+  },
+  {
+    key: 'tangerine-dark', name: 'Tangerine Dark', accent: '#e69500', bg: '#1a1608', font: 'Overpass, sans-serif', fontLabel: 'Overpass',
+  },
+  {
+    key: 'greyscale-light', name: 'Greyscale Light', accent: '#808080', bg: '#fff', font: 'IBM Plex Sans, sans-serif', fontLabel: 'IBM Plex Sans',
+  },
+  {
+    key: 'greyscale-dark', name: 'Greyscale Dark', accent: '#404040', bg: '#1a202c', font: 'Karla, sans-serif', fontLabel: 'Karla',
+  },
+  {
+    key: 'ultracolourful', name: 'Ultra Colourful', accent: '#ff6b6b', bg: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dda0dd)', font: 'Comic Neue, cursive', fontLabel: 'Comic Neue',
+  },
+  {
+    key: 'sunshine-light', name: 'Sunshine Light', accent: '#fff700', bg: '#fffef7', font: 'Quicksand, sans-serif', fontLabel: 'Quicksand',
+  },
+  {
+    key: 'sunshine-dark', name: 'Sunshine Dark', accent: '#e1cd00', bg: '#1c1917', font: 'Work Sans, sans-serif', fontLabel: 'Work Sans',
+  },
+];
+
+function openThemeModal() {
+  const modal = document.getElementById('themeModal');
+  const grid = document.getElementById('themeCardGrid');
+  grid.innerHTML = '';
+  const currentTheme = document.body.getAttribute('data-theme') || 'default-light';
+  themes.forEach(theme => {
+    const card = document.createElement('div');
+    card.className = 'theme-card' + (theme.key === currentTheme ? ' selected' : '');
+    card.onclick = () => {
+      applyTheme(theme.key);
+      closeThemeModal();
+    };
+    // Card left: accent, right: preview
+    const accent = document.createElement('div');
+    accent.className = 'theme-accent';
+    accent.style.background = theme.accent;
+    const preview = document.createElement('div');
+    preview.className = 'theme-preview';
+    preview.style.background = theme.bg;
+    preview.style.fontFamily = theme.font;
+    const name = document.createElement('div');
+    name.className = 'theme-name';
+    name.textContent = theme.name;
+    const fontPreview = document.createElement('div');
+    fontPreview.className = 'theme-font-preview';
+    fontPreview.textContent = theme.fontLabel;
+    fontPreview.style.fontFamily = theme.font;
+    preview.appendChild(name);
+    preview.appendChild(fontPreview);
+    card.appendChild(accent);
+    card.appendChild(preview);
+    grid.appendChild(card);
+  });
+  modal.style.display = 'flex';
+}
+function closeThemeModal() {
+  document.getElementById('themeModal').style.display = 'none';
+}
+
 // Task management functions
 function addTask() {
     const taskInput = document.getElementById('taskInput');
@@ -529,10 +635,10 @@ document.addEventListener('keydown', function(e) {
             switchView('yearly');
             break;
         case 't':
-            toggleThemeSelector();
+            openThemeModal();
             break;
         case 'Escape':
-            document.getElementById('themeSelector').style.display = 'none';
+            closeThemeModal();
             break;
     }
 });
