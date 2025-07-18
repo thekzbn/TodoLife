@@ -389,14 +389,19 @@ async function loadMonthlyView() {
     const endDate = new Date(lastDay);
     endDate.setDate(lastDay.getDate() + (6 - lastDay.getDay()));
     
-    // Generate calendar grid
+    // Generate calendar grid in order
+    const days = [];
     const current = new Date(startDate);
     while (current <= endDate) {
-        const dayData = await loadUserData(current);
-        const dayElement = createMonthDay(current, dayData);
-        monthGrid.appendChild(dayElement);
-        
+        days.push(new Date(current));
         current.setDate(current.getDate() + 1);
+    }
+    // Sort days in ascending order
+    days.sort((a, b) => a - b);
+    for (const day of days) {
+        const dayData = await loadUserData(day);
+        const dayElement = createMonthDay(day, dayData);
+        monthGrid.appendChild(dayElement);
     }
 }
 
@@ -431,8 +436,9 @@ async function loadYearlyView() {
     const yearGrid = document.getElementById('yearGrid');
     yearGrid.innerHTML = '';
     
-    // Generate 12 months
-    for (let month = 0; month < 12; month++) {
+    // Generate 12 months in order
+    const months = Array.from({ length: 12 }, (_, i) => i);
+    for (const month of months) {
         const monthData = await getMonthSummary(currentYear, month);
         const monthElement = createYearMonth(currentYear, month, monthData);
         yearGrid.appendChild(monthElement);

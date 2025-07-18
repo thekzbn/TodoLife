@@ -30,6 +30,9 @@
                     <input type="email" id="email" placeholder="Email" required>
                     <input type="password" id="password" placeholder="Password" required>
                     <button onclick="signIn()">Sign In</button>
+                    <button type="button" class="google-signin-btn" onclick="signInWithGoogle()" style="margin-top: 10px; width: 100%; background: #fff; color: #444; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 500;">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width: 20px; height: 20px;"> Sign in with Google
+                    </button>
                     <p>Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a></p>
                 </div>
                 <div id="signupForm" style="display: none;">
@@ -37,6 +40,9 @@
                     <input type="password" id="signupPassword" placeholder="Password" required>
                     <input type="text" id="displayName" placeholder="Display Name" required>
                     <button onclick="signUp()">Sign Up</button>
+                    <button type="button" class="google-signin-btn" onclick="signInWithGoogle()" style="margin-top: 10px; width: 100%; background: #fff; color: #444; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 500;">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width: 20px; height: 20px;"> Sign up with Google
+                    </button>
                     <p>Already have an account? <a href="#" onclick="showSignIn()">Sign In</a></p>
                 </div>
             </div>

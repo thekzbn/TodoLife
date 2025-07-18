@@ -107,6 +107,23 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
+// Add Google Sign-In
+function signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+        .then((result) => {
+            currentUser = result.user;
+            document.getElementById('authModal').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            initializeApp();
+        })
+        .catch((error) => {
+            alert('Error signing in with Google: ' + error.message);
+        });
+}
+// Make function available globally
+window.signInWithGoogle = signInWithGoogle;
+
 // Firestore helper functions
 function getUserDocRef(date) {
     const dateStr = formatDateKey(date);
