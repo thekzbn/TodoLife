@@ -612,4 +612,37 @@ document.addEventListener('keydown', function(e) {
     switch(e.key) {
         case 'ArrowLeft':
             if (currentView === 'daily') changeDate(-1);
-            else if (currentView === 'weekly') change
+            else if (currentView === 'weekly') changeWeek(-1);
+            else if (currentView === 'monthly') changeMonth(-1);
+            else if (currentView === 'yearly') changeYear(-1);
+            break;
+        case 'ArrowRight':
+            if (currentView === 'daily') changeDate(1);
+            else if (currentView === 'weekly') changeWeek(1);
+            else if (currentView === 'monthly') changeMonth(1);
+            else if (currentView === 'yearly') changeYear(1);
+            break;
+        case '1':
+            switchView('daily');
+            break;
+        case '2':
+            switchView('weekly');
+            break;
+        case '3':
+            switchView('monthly');
+            break;
+        case '4':
+            switchView('yearly');
+            break;
+        case 't':
+            openThemeModal();
+            break;
+        case 'Escape':
+            closeThemeModal();
+            break;
+    }
+});
+
+// Initialize dates
+currentDate = currentDate || new Date();
+updateDateDisplays();
