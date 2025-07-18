@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual To-Do List</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Bebas+Neue&family=Nunito+Sans:wght@200;300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&family=Saira:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Ubuntu:wght@300;400;500;700&family=Mulish:wght@200;300;400;500;600;700;800;900&family=Prompt:wght@100;200;300;400;500;600;700;800;900&family=Lato:wght@100;300;400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Source+Sans+3:wght@200;300;400;500;600;700;800;900&family=Righteous&family=PT+Sans:wght@400;700&family=Titillium+Web:wght@200;300;400;600;700;900&family=Manrope:wght@200;300;400;500;600;700;800&family=Tenor+Sans&family=Assistant:wght@200;300;400;500;600;700;800&family=Red+Hat+Display:wght@300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Yatra+One&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Exo+2:wght@100;200;300;400;500;600;700;800;900&family=Overpass:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Serif:wght@100;200;300;400;500;600;700&family=Fira+Sans:wght@100;200;300;400;500;600;700;800;900&family=Karla:wght@200;300;400;500;600;700;800&family=Bungee+Shade&family=Comic+Neue:wght@300;400;700&family=Baloo+2:wght@400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&family=Varela+Round&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Authentication Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <h2>Welcome to Spiritual To-Do</h2>
+            <div id="authContainer">
+                <div id="loginForm">
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <button onclick="signIn()">Sign In</button>
+                    <p>Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a></p>
+                </div>
+                <div id="signupForm" style="display: none;">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                    <input type="password" id="signupPassword" placeholder="Password" required>
+                    <input type="text" id="displayName" placeholder="Display Name" required>
+                    <button onclick="signUp()">Sign Up</button>
+                    <p>Already have an account? <a href="#" onclick="showSignIn()">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">Spiritual To-Do</h1>
+                <div class="header-controls">
+                    <button id="themeBtn" class="icon-btn" onclick="toggleThemeSelector()">
+                        <span class="material-icons">palette</span>
+                    </button>
+                    <button id="viewBtn" class="icon-btn" onclick="toggleView()">
+                        <span class="material-icons">view_module</span>
+                    </button>
+                    <button id="userBtn" class="icon-btn" onclick="signOut()">
+                        <span class="material-icons">logout</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Theme Selector -->
+            <div id="themeSelector" class="theme-selector" style="display: none;">
+                <div class="theme-grid">
+                    <button class="theme-option" data-theme="default-light">Default Light</button>
+                    <button class="theme-option" data-theme="default-dark">Default Dark</button>
+                    <button class="theme-option" data-theme="ocean-light">Ocean Light</button>
+                    <button class="theme-option" data-theme="navy-dark">Navy Dark</button>
+                    <button class="theme-option" data-theme="tomato-light">Tomato Light</button>
+                    <button class="theme-option" data-theme="tomato-dark">Tomato Dark</button>
+                    <button class="theme-option" data-theme="mediumsea-light">MediumSea Light</button>
+                    <button class="theme-option" data-theme="mediumsea-dark">MediumSea Dark</button>
+                    <button class="theme-option" data-theme="violet-light">Violet Light</button>
+                    <button class="theme-option" data-theme="violet-dark">Violet Dark</button>
+                    <button class="theme-option" data-theme="orange-light">Orange Light</button>
+                    <button class="theme-option" data-theme="orange-dark">Orange Dark</button>
+                    <button class="theme-option" data-theme="khaki-light">Khaki Light</button>
+                    <button class="theme-option" data-theme="khaki-dark">Khaki Dark</button>
+                    <button class="theme-option" data-theme="tangerine-light">Tangerine Light</button>
+                    <button class="theme-option" data-theme="tangerine-dark">Tangerine Dark</button>
+                    <button class="theme-option" data-theme="greyscale-light">Greyscale Light</button>
+                    <button class="theme-option" data-theme="greyscale-dark">Greyscale Dark</button>
+                    <button class="theme-option" data-theme="ultracolourful">Ultra Colourful</button>
+                    <button class="theme-option" data-theme="sunshine-light">Sunshine Light</button>
+                    <button class="theme-option" data-theme="sunshine-dark">Sunshine Dark</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Daily View -->
+            <div id="dailyView" class="view active">
+                <div class="date-navigation">
+                    <button class="nav-btn" onclick="changeDate(-1)">
+                        <span class="material-icons">chevron_left</span>
+                    </button>
+                    <h2 id="currentDate" class="current-date"></h2>
+                    <button class="nav-btn" onclick="changeDate(1)">
+                        <span class="material-icons">chevron_right</span>
+                    </button>
+                </div>
+
+                <div class="daily-content">
+                    <!-- Bible Verse Section -->
+                    <div class="verse-section">
+                        <div class="verse-content">
+                            <p id="verseText" class="verse-text">Loading verse...</p>
+                            <p id="verseReference" class="verse-reference"></p>
+                        </div>
+                    </div>
+
+                    <!-- Branding Section -->
+                    <div class="branding-section">
+                        <input type="text" id="brandingInput" class="branding-input" placeholder="Add a special note for today (e.g., 'John's Birthday', 'Cal Today')">
+                    </div>
+
+                    <!-- Tasks Section -->
+                    <div class="tasks-section">
+                        <h3>Today's Tasks</h3>
+                        <div class="task-input-container">
+                            <input type="text" id="taskInput" class="task-input" placeholder="Add a new task...">
+                            <button onclick="addTask()" class="add-btn">
+                                <span class="material-icons">add</span>
+                            </button>
+                        </div>
+                        <ul id="taskList" class="task-list"></ul>
+                    </div>
+
+                    <!-- Learning Notes Section -->
+                    <div class="notes-section">
+                        <h3>What I Learned Today</h3>
+                        <textarea id="learningNotes" class="learning-notes" placeholder="Reflect on what you learned or discovered today..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly View -->
+            <div id="weeklyView" class="view">
+                <div class="week-navigation">
+                    <button class="nav-btn" onclick="changeWeek(-1)">
+                        <span class="material-icons">chevron_left</span>
+                    </button>
+                    <h2 id="weekRange" class="week-range"></h2>
+                    <button class="nav-btn" onclick="changeWeek(1)">
+                        <span class="material-icons">chevron_right</span>
+                    </button>
+                </div>
+                <div id="weekGrid" class="week-grid"></div>
+                <div class="main-day-section">
+                    <h3>Main Day of This Week</h3>
+                    <select id="mainDaySelect" class="main-day-select">
+                        <option value="">Select main day...</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Monthly View -->
+            <div id="monthlyView" class="view">
+                <div class="month-navigation">
+                    <button class="nav-btn" onclick="changeMonth(-1)">
+                        <span class="material-icons">chevron_left</span>
+                    </button>
+                    <h2 id="monthYear" class="month-year"></h2>
+                    <button class="nav-btn" onclick="changeMonth(1)">
+                        <span class="material-icons">chevron_right</span>
+                    </button>
+                </div>
+                <div id="monthGrid" class="month-grid"></div>
+            </div>
+
+            <!-- Yearly View -->
+            <div id="yearlyView" class="view">
+                <div class="year-navigation">
+                    <button class="nav-btn" onclick="changeYear(-1)">
+                        <span class="material-icons">chevron_left</span>
+                    </button>
+                    <h2 id="currentYear" class="current-year"></h2>
+                    <button class="nav-btn" onclick="changeYear(1)">
+                        <span class="material-icons">chevron_right</span>
+                    </button>
+                </div>
+                <div id="yearGrid" class="year-grid"></div>
+            </div>
+        </main>
+
+        <!-- View Selector -->
+        <nav class="view-selector">
+            <button class="view-btn active" data-view="daily" onclick="switchView('daily')">Day</button>
+            <button class="view-btn" data-view="weekly" onclick="switchView('weekly')">Week</button>
+            <button class="view-btn" data-view="monthly" onclick="switchView('monthly')">Month</button>
+            <button class="view-btn" data-view="yearly" onclick="switchView('yearly')">Year</button>
+        </nav>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="themes.js"></script>
+    <script src="bible-verses.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
