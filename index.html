@@ -1,192 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TodoLife</title>
-    
+    <title>TodoLife - Spiritual Productivity & Open Source To-Do App</title>
+    <meta name="description"
+        content="A beautiful, open-source, spiritual to-do list app with Firebase sync, 21 themes, and daily Bible verses for inspiration.">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Bebas+Neue&family=Nunito+Sans:wght@200;300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&family=Saira:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Ubuntu:wght@300;400;500;700&family=Mulish:wght@200;300;400;500;600;700;800;900&family=Prompt:wght@100;200;300;400;500;600;700;800;900&family=Lato:wght@100;300;400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Source+Sans+3:wght@200;300;400;500;600;700;800;900&family=Righteous&family=PT+Sans:wght@400;700&family=Titillium+Web:wght@200;300;400;600;700;900&family=Manrope:wght@200;300;400;500;600;700;800&family=Tenor+Sans&family=Assistant:wght@200;300;400;500;600;700;800&family=Red+Hat+Display:wght@300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Yatra+One&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Exo+2:wght@100;200;300;400;500;600;700;800;900&family=Overpass:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Serif:wght@100;200;300;400;500;600;700&family=Fira+Sans:wght@100;200;300;400;500;600;700;800;900&family=Karla:wght@200;300;400;500;600;700;800&family=Bungee+Shade&family=Comic+Neue:wght@300;400;700&family=Baloo+2:wght@400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&family=Varela+Round&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Google Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/index.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>✓</text></svg>">
 </head>
-<body>
-    <!-- Authentication Modal -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <h2>Welcome to TodoLife</h2>
-            <div id="authContainer">
-                <div id="loginForm">
-                    <input type="email" id="email" placeholder="Email" required>
-                    <input type="password" id="password" placeholder="Password" required>
-                    <button onclick="signIn()">Sign In</button>
-                    <button type="button" class="google-signin-btn" onclick="signInWithGoogle()" style="margin-top: 10px; width: 100%; background: #fff; color: #444; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 500;">
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width: 20px; height: 20px;"> Sign in with Google
-                    </button>
-                    <p>Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a></p>
+
+<body data-theme="default-light">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">✓</div>
+                <span class="brand-name">TodoLife</span>
+            </div>
+
+            <div class="nav-menu" id="nav-menu">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#themes" class="nav-link">Themes</a>
+                <a href="#getting-started" class="nav-link">Get Started</a>
+                <a href="#community" class="nav-link">Community</a>
+                <a href="https://github.com/yourusername/todolife" class="nav-link" target="_blank">
+                    <span class="github-icon">⚡</span>
+                    GitHub
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <a href="app.html" class="btn btn-outline">Sign In</a>
+                <a href="app.html" class="btn btn-primary">Get Started</a>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">🙏</span>
+                    Open Source & Spiritual
                 </div>
-                <div id="signupForm" style="display: none;">
-                    <input type="email" id="signupEmail" placeholder="Email" required>
-                    <input type="password" id="signupPassword" placeholder="Password" required>
-                    <input type="text" id="displayName" placeholder="Display Name" required>
-                    <button onclick="signUp()">Sign Up</button>
-                    <button type="button" class="google-signin-btn" onclick="signInWithGoogle()" style="margin-top: 10px; width: 100%; background: #fff; color: #444; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 500;">
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width: 20px; height: 20px;"> Sign up with Google
-                    </button>
-                    <p>Already have an account? <a href="#" onclick="showSignIn()">Sign In</a></p>
+
+                <h1 class="hero-title">
+                    Organize Your Life with
+                    <span class="accent-text">Purpose & Prayer</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    TodoLife combines powerful task management with daily spiritual inspiration.
+                    Stay organized while growing in faith with Bible verses, 21 beautiful themes,
+                    and seamless cloud synchronization.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="app.html" class="btn btn-primary btn-large">
+                        <span class="btn-icon">🚀</span>
+                        Start Your Journey
+                    </a>
+                    <a href="#features" class="btn btn-outline btn-large">
+                        <span class="btn-icon">🎯</span>
+                        Explore Features
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">21</div>
+                        <div class="stat-label">Beautiful Themes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Bible Verses</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Open Source</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="app-preview">
+                    <div class="app-header">
+                        <div class="app-controls">
+                            <div class="control-dot red"></div>
+                            <div class="control-dot yellow"></div>
+                            <div class="control-dot green"></div>
+                        </div>
+                        <div class="app-title">TodoLife</div>
+                    </div>
+                    <div class="app-content">
+                        <div class="verse-section">
+                            <div class="verse-icon">📖</div>
+                            <div class="verse-text">"I can do all things through Christ who strengthens me."</div>
+                            <div class="verse-ref">Philippians 4:13</div>
+                        </div>
+                        <div class="tasks-section">
+                            <div class="task completed">
+                                <div class="task-checkbox checked">✓</div>
+                                <div class="task-text">Morning prayer and meditation</div>
+                            </div>
+                            <div class="task">
+                                <div class="task-checkbox"></div>
+                                <div class="task-text">Review weekly goals</div>
+                            </div>
+                            <div class="task">
+                                <div class="task-checkbox"></div>
+                                <div class="task-text">Read daily devotional</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Main App Container -->
-    <div id="app" style="display: none;">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <h1 class="app-title">TodoLife</h1>
-                <div class="header-controls">
-                    <button id="themeBtn" class="icon-btn" onclick="openThemeModal()">
-                        <span class="material-icons">palette</span>
-                    </button>
-                    <button id="viewBtn" class="icon-btn" onclick="toggleView()">
-                        <span class="material-icons">view_module</span>
-                    </button>
-                    <button id="userBtn" class="icon-btn" onclick="signOut()">
-                        <span class="material-icons">logout</span>
-                    </button>
-                </div>
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Everything You Need for Spiritual Productivity</h2>
+                <p class="section-subtitle">
+                    Powerful features designed to help you stay organized while growing in faith
+                </p>
             </div>
-        </header>
-        <!-- Theme Modal -->
-        <div id="themeModal" class="modal" style="display:none; z-index:2000;">
-            <div class="modal-content" style="max-width:700px; width:95%; position:relative;">
-                <button onclick="closeThemeModal()" class="modal-close-btn" aria-label="Close" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:2rem; color:var(--text-secondary); cursor:pointer; z-index:10;">&times;</button>
-                <h2 style="text-align:center;">Select a Theme</h2>
-                <div id="themeCardGrid" class="theme-card-grid"></div>
-                <button onclick="closeThemeModal()" style="margin-top:1rem; width:100%;">Close</button>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3 class="feature-title">Multiple Views</h3>
+                    <p class="feature-description">
+                        Daily, Weekly, Monthly, and Yearly task management to keep you organized at every level of your
+                        spiritual journey.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3 class="feature-title">Daily Bible Verses</h3>
+                    <p class="feature-description">
+                        Start each day with inspiration through carefully curated Bible verses and spiritual
+                        reflections.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">21 Beautiful Themes</h3>
+                    <p class="feature-description">
+                        Express your personality with 21 stunning themes, each featuring unique fonts and color
+                        palettes.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">☁️</div>
+                    <h3 class="feature-title">Cloud Sync</h3>
+                    <p class="feature-description">
+                        Secure, real-time synchronization with Firebase Firestore keeps your tasks updated across all
+                        devices.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3 class="feature-title">Secure Authentication</h3>
+                    <p class="feature-description">
+                        Login with email/password or Google sign-in. Your spiritual journey and tasks remain private and
+                        secure.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Responsive Design</h3>
+                    <p class="feature-description">
+                        Works beautifully on desktop, tablet, and mobile. Take your spiritual productivity anywhere.
+                    </p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Daily View -->
-            <div id="dailyView" class="view active">
-                <div class="date-navigation">
-                    <button class="nav-btn" onclick="changeDate(-1)">
-                        <span class="material-icons">chevron_left</span>
-                    </button>
-                    <h2 id="currentDate" class="current-date"></h2>
-                    <button class="nav-btn" onclick="changeDate(1)">
-                        <span class="material-icons">chevron_right</span>
-                    </button>
+    <!-- Themes Preview Section -->
+    <section id="themes" class="themes-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">21 Stunning Themes</h2>
+                <p class="section-subtitle">
+                    Choose the perfect aesthetic for your spiritual journey
+                </p>
+            </div>
+
+            <div class="theme-selector">
+                <div class="theme-options">
+                    <div class="theme-option active" data-theme="default-light">
+                        <div class="theme-preview default-light"></div>
+                        <span class="theme-name">Default Light</span>
+                    </div>
+                    <div class="theme-option" data-theme="ocean-light">
+                        <div class="theme-preview ocean-light"></div>
+                        <span class="theme-name">Ocean Light</span>
+                    </div>
+                    <div class="theme-option" data-theme="violet-light">
+                        <div class="theme-preview violet-light"></div>
+                        <span class="theme-name">Violet Light</span>
+                    </div>
+                    <div class="theme-option" data-theme="mediumsea-light">
+                        <div class="theme-preview mediumsea-light"></div>
+                        <span class="theme-name">Medium Sea</span>
+                    </div>
+                    <div class="theme-option" data-theme="sunshine-light">
+                        <div class="theme-preview sunshine-light"></div>
+                        <span class="theme-name">Sunshine</span>
+                    </div>
                 </div>
 
-                <div class="daily-content">
-                    <!-- Bible Verse Section -->
-                    <div class="verse-section">
-                        <div class="verse-content">
-                            <p id="verseText" class="verse-text">Loading verse...</p>
-                            <p id="verseReference" class="verse-reference"></p>
+                <div class="theme-showcase" id="theme-showcase">
+                    <div class="showcase-window">
+                        <div class="window-header">
+                            <div class="window-controls">
+                                <div class="control-dot red"></div>
+                                <div class="control-dot yellow"></div>
+                                <div class="control-dot green"></div>
+                            </div>
+                            <div class="window-title">TodoLife - Theme Preview</div>
+                        </div>
+                        <div class="window-content">
+                            <div class="preview-header">
+                                <h3>Today's Tasks</h3>
+                                <div class="preview-date">December 15, 2024</div>
+                            </div>
+                            <div class="preview-tasks">
+                                <div class="preview-task completed">
+                                    <div class="task-check">✓</div>
+                                    <span>Morning devotional reading</span>
+                                </div>
+                                <div class="preview-task">
+                                    <div class="task-check"></div>
+                                    <span>Prepare Sunday sermon notes</span>
+                                </div>
+                                <div class="preview-task">
+                                    <div class="task-check"></div>
+                                    <span>Call prayer partner</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <!-- Branding Section -->
-                    <div class="branding-section">
-                        <input type="text" id="brandingInput" class="branding-input" placeholder="Add a special note for today (e.g., 'John's Birthday', 'Cal Today')">
-                    </div>
+    <!-- Getting Started Section -->
+    <section id="getting-started" class="getting-started">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get Started in Minutes</h2>
+                <p class="section-subtitle">
+                    Simple setup process to begin your spiritual productivity journey
+                </p>
+            </div>
 
-                    <!-- Tasks Section -->
-                    <div class="tasks-section">
-                        <h3>Today's Tasks</h3>
-                        <div class="task-input-container">
-                            <input type="text" id="taskInput" class="task-input" placeholder="Add a new task...">
-                            <button onclick="addTask()" class="add-btn">
-                                <span class="material-icons">add</span>
-                            </button>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Clone Repository</h3>
+                        <p class="step-description">Download TodoLife from GitHub to get started</p>
+                        <div class="code-block">
+                            <code>git clone https://github.com/yourusername/todolife.git</code>
+                            <button class="copy-btn" onclick="copyCode(this)">📋</button>
                         </div>
-                        <ul id="taskList" class="task-list"></ul>
-                    </div>
-
-                    <!-- Learning Notes Section -->
-                    <div class="notes-section">
-                        <h3>What I Learned Today</h3>
-                        <textarea id="learningNotes" class="learning-notes" placeholder="Reflect on what you learned or discovered today..."></textarea>
                     </div>
                 </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Setup Firebase</h3>
+                        <p class="step-description">Configure authentication and cloud sync</p>
+                        <ul class="step-list">
+                            <li>Create a Firebase project</li>
+                            <li>Enable Authentication and Firestore</li>
+                            <li>Copy config to firebase-config.js</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Run Locally</h3>
+                        <p class="step-description">Start using TodoLife on your local machine</p>
+                        <div class="code-block">
+                            <code>python -m http.server 8000</code>
+                            <button class="copy-btn" onclick="copyCode(this)">📋</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Weekly View -->
-            <div id="weeklyView" class="view">
-                <div class="week-navigation">
-                    <button class="nav-btn" onclick="changeWeek(-1)">
-                        <span class="material-icons">chevron_left</span>
-                    </button>
-                    <h2 id="weekRange" class="week-range"></h2>
-                    <button class="nav-btn" onclick="changeWeek(1)">
-                        <span class="material-icons">chevron_right</span>
-                    </button>
+            <div class="cta-section">
+                <div class="cta-content">
+                    <h3>Ready to Transform Your Productivity?</h3>
+                    <p>Join thousands using TodoLife for spiritual growth and daily organization</p>
+                    <div class="cta-actions">
+                        <a href="app.html" class="btn btn-primary btn-large">
+                            <span class="btn-icon">🚀</span>
+                            Start Free Today
+                        </a>
+                        <a href="https://github.com/yourusername/todolife" class="btn btn-outline btn-large"
+                            target="_blank">
+                            <span class="btn-icon">⚡</span>
+                            View on GitHub
+                        </a>
+                    </div>
                 </div>
-                <div id="weekGrid" class="week-grid"></div>
-                <div class="main-day-section">
-                    <h3>Main Day of This Week</h3>
-                    <select id="mainDaySelect" class="main-day-select">
-                        <option value="">Select main day...</option>
-                    </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Join Our Community</h2>
+                <p class="section-subtitle">
+                    Built with ❤️ by the open-source community for spiritual growth
+                </p>
+            </div>
+
+            <div class="community-grid">
+                <div class="community-card">
+                    <div class="community-icon">🐛</div>
+                    <h3 class="community-title">Report Issues</h3>
+                    <p class="community-description">
+                        Found a bug or have a suggestion? We'd love to hear from you.
+                    </p>
+                    <a href="https://github.com/yourusername/todolife/issues" class="community-link" target="_blank">
+                        Report Issue →
+                    </a>
+                </div>
+
+                <div class="community-card">
+                    <div class="community-icon">🤝</div>
+                    <h3 class="community-title">Contribute</h3>
+                    <p class="community-description">
+                        Help improve TodoLife with code, documentation, or ideas.
+                    </p>
+                    <a href="https://github.com/yourusername/todolife/pulls" class="community-link" target="_blank">
+                        Contribute →
+                    </a>
+                </div>
+
+                <div class="community-card">
+                    <div class="community-icon">💬</div>
+                    <h3 class="community-title">Discussions</h3>
+                    <p class="community-description">
+                        Join conversations about features, faith, and productivity.
+                    </p>
+                    <a href="https://github.com/yourusername/todolife/discussions" class="community-link"
+                        target="_blank">
+                        Join Discussion →
+                    </a>
                 </div>
             </div>
 
-            <!-- Monthly View -->
-            <div id="monthlyView" class="view">
-                <div class="month-navigation">
-                    <button class="nav-btn" onclick="changeMonth(-1)">
-                        <span class="material-icons">chevron_left</span>
-                    </button>
-                    <h2 id="monthYear" class="month-year"></h2>
-                    <button class="nav-btn" onclick="changeMonth(1)">
-                        <span class="material-icons">chevron_right</span>
-                    </button>
+            <div class="open-source-info">
+                <div class="license-badge">
+                    <span class="badge-icon">📄</span>
+                    MIT Licensed
                 </div>
-                <div id="monthGrid" class="month-grid"></div>
+                <p class="license-text">
+                    TodoLife is free and open source software. Use it for personal or commercial projects,
+                    modify it to your heart's content, and share it with others.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo">✓</div>
+                        <span class="brand-name">TodoLife</span>
+                    </div>
+                    <p class="footer-tagline">
+                        Spiritual productivity for daily organization and faith growth.
+                    </p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4 class="link-title">Product</h4>
+                        <a href="#features" class="footer-link">Features</a>
+                        <a href="#themes" class="footer-link">Themes</a>
+                        <a href="app.html" class="footer-link">Sign Up</a>
+                    </div>
+
+                    <div class="link-group">
+                        <h4 class="link-title">Resources</h4>
+                        <a href="#getting-started" class="footer-link">Getting Started</a>
+                        <a href="https://github.com/yourusername/todolife" class="footer-link"
+                            target="_blank">Documentation</a>
+                        <a href="https://github.com/yourusername/todolife/blob/main/firebase-setup-guide.md"
+                            class="footer-link" target="_blank">Firebase Setup</a>
+                    </div>
+
+                    <div class="link-group">
+                        <h4 class="link-title">Community</h4>
+                        <a href="https://github.com/yourusername/todolife" class="footer-link"
+                            target="_blank">GitHub</a>
+                        <a href="https://github.com/yourusername/todolife/issues" class="footer-link"
+                            target="_blank">Issues</a>
+                        <a href="https://github.com/yourusername/todolife/discussions" class="footer-link"
+                            target="_blank">Discussions</a>
+                    </div>
+                </div>
             </div>
 
-            <!-- Yearly View -->
-            <div id="yearlyView" class="view">
-                <div class="year-navigation">
-                    <button class="nav-btn" onclick="changeYear(-1)">
-                        <span class="material-icons">chevron_left</span>
-                    </button>
-                    <h2 id="currentYear" class="current-year"></h2>
-                    <button class="nav-btn" onclick="changeYear(1)">
-                        <span class="material-icons">chevron_right</span>
-                    </button>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 TodoLife. Built with ❤️ by the open-source community.
+                </p>
+                <div class="footer-social">
+                    <a href="https://github.com/yourusername/todolife" class="social-link" target="_blank"
+                        aria-label="GitHub">
+                        ⚡
+                    </a>
                 </div>
-                <div id="yearGrid" class="year-grid"></div>
             </div>
-        </main>
+        </div>
+    </footer>
 
-        <!-- View Selector -->
-        <nav class="view-selector">
-            <button class="view-btn active" data-view="daily" onclick="switchView('daily')">Day</button>
-            <button class="view-btn" data-view="weekly" onclick="switchView('weekly')">Week</button>
-            <button class="view-btn" data-view="monthly" onclick="switchView('monthly')">Month</button>
-            <button class="view-btn" data-view="yearly" onclick="switchView('yearly')">Year</button>
-        </nav>
-    </div>
-
-    <script src="firebase-config.js"></script>
-    <script src="themes.js"></script>
-    <script src="bible-verses.js"></script>
-    <script src="app.js"></script>
+    <script src="assets/js/index.js"></script>
 </body>
+
 </html>

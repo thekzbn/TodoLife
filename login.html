@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | TodoLife</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(120deg, var(--accent-color) 0%, var(--bg-primary) 100%);
+        }
+        .auth-container {
+            background: rgba(255,255,255,0.97);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+            padding: 2.5rem 2rem;
+            max-width: 400px;
+            width: 95vw;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .auth-title {
+            font-size: 2rem;
+            font-family: 'Inter Tight', sans-serif;
+            color: var(--accent-color);
+            margin-bottom: 1.2rem;
+        }
+        .auth-form input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: var(--body-font);
+            border-radius: 0.7rem;
+        }
+        .auth-form button, .google-signin-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            border-radius: 0.7rem;
+            font-size: 1.1rem;
+        }
+        .google-signin-btn {
+            background: #fff;
+            color: #444;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        .google-signin-btn img {
+            width: 20px;
+            height: 20px;
+        }
+        .auth-link {
+            color: var(--accent-color);
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 1rem;
+        }
+        .auth-error {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        @media (max-width: 600px) {
+            .auth-container {
+                padding: 1.2rem 0.5rem;
+                max-width: 98vw;
+            }
+            .auth-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-title">TodoLife Login</div>
+        <div id="authError" class="auth-error" style="display:none;"></div>
+        <form id="loginForm" class="auth-form" onsubmit="return handleSignIn(event)">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Sign In</button>
+            <button type="button" class="google-signin-btn" onclick="signInWithGoogle()">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"> Sign in with Google
+            </button>
+        </form>
+        <div>
+            <span>Don't have an account? </span>
+            <span class="auth-link" onclick="showSignUp()">Sign Up</span>
+        </div>
+        <form id="signupForm" class="auth-form" style="display:none; margin-top:1.5rem;" onsubmit="return handleSignUp(event)">
+            <input type="email" id="signupEmail" placeholder="Email" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <input type="text" id="displayName" placeholder="Display Name" required>
+            <button type="submit">Sign Up</button>
+            <button type="button" class="google-signin-btn" onclick="signInWithGoogle()">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"> Sign up with Google
+            </button>
+        </form>
+        <div id="signupLink" style="display:none;">
+            <span>Already have an account? </span>
+            <span class="auth-link" onclick="showSignIn()">Sign In</span>
+        </div>
+    </div>
+    <script src="firebase-config.js"></script>
+    <script>
+    // Show/hide forms
+    function showSignUp() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('signupForm').style.display = 'block';
+        document.getElementById('signupLink').style.display = 'block';
+        document.getElementById('authError').style.display = 'none';
+    }
+    function showSignIn() {
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('signupForm').style.display = 'none';
+        document.getElementById('signupLink').style.display = 'none';
+        document.getElementById('authError').style.display = 'none';
+    }
+    // Handle sign in
+    function handleSignIn(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(() => {
+                window.location.href = 'index.html';
+            })
+            .catch(err => showError(err.message));
+        return false;
+    }
+    // Handle sign up
+    function handleSignUp(e) {
+        e.preventDefault();
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const displayName = document.getElementById('displayName').value;
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(userCredential => {
+                return userCredential.user.updateProfile({ displayName });
+            })
+            .then(() => {
+                window.location.href = 'index.html';
+            })
+            .catch(err => showError(err.message));
+        return false;
+    }
+    // Google sign-in
+    function signInWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+            .then(() => {
+                window.location.href = 'index.html';
+            })
+            .catch(err => showError(err.message));
+    }
+    // Show error
+    function showError(msg) {
+        const errDiv = document.getElementById('authError');
+        errDiv.textContent = msg;
+        errDiv.style.display = 'block';
+    }
+    // Keyboard shortcuts for Enter
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            const active = document.activeElement;
+            if (active && active.form) {
+                active.form.dispatchEvent(new Event('submit', {cancelable: true}));
+            }
+        }
+    });
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</body>
+</html> 

@@ -124,6 +124,29 @@ function signInWithGoogle() {
 // Make function available globally
 window.signInWithGoogle = signInWithGoogle;
 
+// Show authentication modal and hide landing page
+function showAuthModal() {
+    document.getElementById('authModal').style.display = 'flex';
+    document.getElementById('landingPage').style.display = 'none';
+}
+window.showAuthModal = showAuthModal;
+
+// Update auth state observer to handle landing page
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        currentUser = user;
+        document.getElementById('authModal').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        document.getElementById('landingPage').style.display = 'none';
+        initializeApp();
+    } else {
+        currentUser = null;
+        document.getElementById('authModal').style.display = 'flex';
+        document.getElementById('app').style.display = 'none';
+        document.getElementById('landingPage').style.display = 'block';
+    }
+});
+
 // Firestore helper functions
 function getUserDocRef(date) {
     const dateStr = formatDateKey(date);
