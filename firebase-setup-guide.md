@@ -54,14 +54,15 @@ const firebaseConfig = {
 };
 
 // With your actual config that looks like this:
-const firebaseConfig = {
-    apiKey: "AIzaSyC...",
-    authDomain: "spiritual-todo-app-12345.firebaseapp.com",
-    projectId: "spiritual-todo-app-12345",
-    storageBucket: "spiritual-todo-app-12345.appspot.com",
-    messagingSenderId: "123456789012",
-    appId: "1:123456789012:web:abcdef123456789"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyApbgR7NN6Cc0ZjVkvFIsRXUIp-UGj6aqE",
+    authDomain: "todolife-9a248.firebaseapp.com",
+    projectId: "todolife-9a248",
+    storageBucket: "todolife-9a248.firebasestorage.app",
+    messagingSenderId: "332087562112",
+    appId: "1:332087562112:web:c51f9897053215c3337b65",
+    measurementId: "G-ED8TSDMKFV"
+  };
 ```
 
 ## Step 6: Set Up Security Rules

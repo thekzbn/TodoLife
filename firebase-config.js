@@ -1,12 +1,13 @@
 // Firebase Configuration
 // Replace these values with your actual Firebase config
 const firebaseConfig = {
-    apiKey: "your-api-key-here",
-    authDomain: "your-project-id.firebaseapp.com",
-    projectId: "your-project-id",
-    storageBucket: "your-project-id.appspot.com",
-    messagingSenderId: "your-sender-id",
-    appId: "your-app-id"
+    apiKey: "AIzaSyApbgR7NN6Cc0ZjVkvFIsRXUIp-UGj6aqE",
+    authDomain: "todolife-9a248.firebaseapp.com",
+    projectId: "todolife-9a248",
+    storageBucket: "todolife-9a248.firebasestorage.app",
+    messagingSenderId: "332087562112",
+    appId: "1:332087562112:web:c51f9897053215c3337b65",
+    measurementId: "G-ED8TSDMKFV"
 };
 
 // Initialize Firebase
