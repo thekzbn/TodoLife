@@ -3,6 +3,10 @@ let currentWeekStart = null;
 let currentMonth = null;
 let currentYear = null;
 
+// Data cache for performance
+const dataCache = new Map();
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 // Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Set up theme selector event listeners
@@ -203,7 +207,7 @@ const themes = [
     key: 'greyscale-light', name: 'Greyscale Light', accent: '#808080', bg: '#fff', font: 'IBM Plex Sans, sans-serif', fontLabel: 'IBM Plex Sans',
   },
   {
-    key: 'greyscale-dark', name: 'Greyscale Dark', accent: '#404040', bg: '#1a202c', font: 'Karla, sans-serif', fontLabel: 'Karla',
+    key: 'greyscale-dark', name: 'Greyscale Dark', accent: '#b0b0b0', bg: '#23272f', font: 'Karla, sans-serif', fontLabel: 'Karla',
   },
   {
     key: 'ultracolourful', name: 'Ultra Colourful', accent: '#ff6b6b', bg: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dda0dd)', font: 'Comic Neue, cursive', fontLabel: 'Comic Neue',
@@ -309,7 +313,7 @@ function deleteTask(taskId) {
     const taskElement = document.querySelector(`[data-task-id="${taskId}"]`);
     taskElement.remove();
     
-    // Remove from Firebase
+    // Delete from Firebase
     deleteTaskFromFirebase(taskId);
 }
 
@@ -334,12 +338,12 @@ async function updateTaskInFirebase(taskId, updates) {
     if (!currentUser) return;
     
     try {
-        const dayData = await loadUserData(currentDate);
-        if (!dayData || !dayData.tasks) return;
+        const dayData = await loadUserData(currentDate) || {};
+        if (!dayData.tasks) return;
         
-        const taskIndex = dayData.tasks.findIndex(t => t.id === taskId);
+        const taskIndex = dayData.tasks.findIndex(task => task.id === taskId);
         if (taskIndex !== -1) {
-            Object.assign(dayData.tasks[taskIndex], updates);
+            dayData.tasks[taskIndex] = { ...dayData.tasks[taskIndex], ...updates };
             dayData.lastUpdated = firebase.firestore.FieldValue.serverTimestamp();
             await saveUserData(currentDate, dayData);
         }
@@ -352,10 +356,10 @@ async function deleteTaskFromFirebase(taskId) {
     if (!currentUser) return;
     
     try {
-        const dayData = await loadUserData(currentDate);
-        if (!dayData || !dayData.tasks) return;
+        const dayData = await loadUserData(currentDate) || {};
+        if (!dayData.tasks) return;
         
-        dayData.tasks = dayData.tasks.filter(t => t.id !== taskId);
+        dayData.tasks = dayData.tasks.filter(task => task.id !== taskId);
         dayData.lastUpdated = firebase.firestore.FieldValue.serverTimestamp();
         await saveUserData(currentDate, dayData);
     } catch (error) {
@@ -402,6 +406,7 @@ async function loadDailyView() {
     updateDateDisplays();
 }
 
+// Optimized weekly view loading
 async function loadWeeklyView() {
     const weekGrid = document.getElementById('weekGrid');
     const mainDaySelect = document.getElementById('mainDaySelect');
@@ -412,12 +417,21 @@ async function loadWeeklyView() {
     // Load week data
     const weekData = await loadWeekData(currentWeekStart);
     
-    // Generate week days
+    // Generate all dates for the week first
+    const weekDates = [];
     for (let i = 0; i < 7; i++) {
         const date = new Date(currentWeekStart);
         date.setDate(currentWeekStart.getDate() + i);
-        
-        const dayData = await loadUserData(date);
+        weekDates.push(date);
+    }
+    
+    // Batch load all day data
+    const dayDataPromises = weekDates.map(date => loadUserData(date));
+    const dayDataArray = await Promise.all(dayDataPromises);
+    
+    // Create and append day cards in order
+    weekDates.forEach((date, index) => {
+        const dayData = dayDataArray[index];
         const dayCard = createDayCard(date, dayData);
         weekGrid.appendChild(dayCard);
         
@@ -426,7 +440,7 @@ async function loadWeeklyView() {
         option.value = formatDateKey(date);
         option.textContent = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
         mainDaySelect.appendChild(option);
-    }
+    });
     
     // Set selected main day
     if (weekData && weekData.mainDay) {
@@ -479,6 +493,7 @@ function updateWeekDisplay() {
     document.getElementById('weekRange').textContent = `${startStr} - ${endStr}`;
 }
 
+// Optimized monthly view loading
 async function loadMonthlyView() {
     const monthGrid = document.getElementById('monthGrid');
     monthGrid.innerHTML = '';
@@ -495,20 +510,24 @@ async function loadMonthlyView() {
     const endDate = new Date(lastDay);
     endDate.setDate(lastDay.getDate() + (6 - lastDay.getDay()));
     
-    // Generate calendar grid in order
-    const days = [];
+    // Generate all dates for the month view
+    const monthDates = [];
     const current = new Date(startDate);
     while (current <= endDate) {
-        days.push(new Date(current));
+        monthDates.push(new Date(current));
         current.setDate(current.getDate() + 1);
     }
-    // Sort days in ascending order
-    days.sort((a, b) => a - b);
-    for (const day of days) {
-        const dayData = await loadUserData(day);
-        const dayElement = createMonthDay(day, dayData);
+    
+    // Batch load all day data
+    const dayDataPromises = monthDates.map(date => loadUserData(date));
+    const dayDataArray = await Promise.all(dayDataPromises);
+    
+    // Create and append day elements in order
+    monthDates.forEach((date, index) => {
+        const dayData = dayDataArray[index];
+        const dayElement = createMonthDay(date, dayData);
         monthGrid.appendChild(dayElement);
-    }
+    });
 }
 
 function createMonthDay(date, dayData) {
@@ -538,17 +557,22 @@ function createMonthDay(date, dayData) {
     return day;
 }
 
+// Optimized yearly view loading
 async function loadYearlyView() {
     const yearGrid = document.getElementById('yearGrid');
     yearGrid.innerHTML = '';
     
-    // Generate 12 months in order
-    const months = Array.from({ length: 12 }, (_, i) => i);
-    for (const month of months) {
-        const monthData = await getMonthSummary(currentYear, month);
+    // Generate all month summaries in parallel
+    const monthPromises = Array.from({ length: 12 }, (_, month) => 
+        getMonthSummary(currentYear, month)
+    );
+    const monthDataArray = await Promise.all(monthPromises);
+    
+    // Create and append month elements in order
+    monthDataArray.forEach((monthData, month) => {
         const monthElement = createYearMonth(currentYear, month, monthData);
         yearGrid.appendChild(monthElement);
-    }
+    });
 }
 
 function createYearMonth(year, month, monthData) {
@@ -578,18 +602,30 @@ function createYearMonth(year, month, monthData) {
     return monthElement;
 }
 
+// Optimized month summary with caching
 async function getMonthSummary(year, month) {
     if (!currentUser) return { taskDays: 0, noteDays: 0 };
+    
+    const cacheKey = `month_${year}_${month}`;
+    const cached = dataCache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+        return cached.data;
+    }
     
     let taskDays = 0;
     let noteDays = 0;
     
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     
-    for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month, day);
-        const dayData = await loadUserData(date);
-        
+    // Batch load all days in the month
+    const dayPromises = Array.from({ length: daysInMonth }, (_, day) => {
+        const date = new Date(year, month, day + 1);
+        return loadUserData(date);
+    });
+    
+    const dayDataArray = await Promise.all(dayPromises);
+    
+    dayDataArray.forEach(dayData => {
         if (dayData) {
             if (dayData.tasks && dayData.tasks.length > 0) {
                 taskDays++;
@@ -598,9 +634,11 @@ async function getMonthSummary(year, month) {
                 noteDays++;
             }
         }
-    }
+    });
     
-    return { taskDays, noteDays };
+    const result = { taskDays, noteDays };
+    dataCache.set(cacheKey, { data: result, timestamp: Date.now() });
+    return result;
 }
 
 // Keyboard shortcuts
