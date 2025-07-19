@@ -292,7 +292,7 @@ function addTaskToList(task) {
     li.innerHTML = `
         <span class="task-text" onclick="toggleTask('${task.id}')">${task.text}</span>
         <button class="delete-btn" onclick="deleteTask('${task.id}')">
-            <span class="material-icons">delete</span>
+            <span class="material-symbols-outlined">delete</span>
         </button>
     `;
     
