@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https: //fonts.googleapis.com/css2?family=Inter+Tight:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Bebas+Neue&family=Nunito+Sans:wght@200;300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&family=Saira:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Ubuntu:wght@300;400;500;700&family=Mulish:wght@200;300;400;500;600;700;800;900&family=Prompt:wght@100;200;300;400;500;600;700;800;900&family=Lato:wght@100;300;400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Source+Sans+3:wght@200;300;400;500;600;700;800;900&family=Righteous&family=PT+Sans:wght@400;700&family=Titillium+Web:wght@200;300;400;600;700;900&family=Manrope:wght@200;300;400;500;600;700;800&family=Tenor+Sans&family=Assistant:wght@200;300;400;500;600;700;800&family=Red+Hat+Display:wght@300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Yatra+One&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Exo+2:wght@100;200;300;400;500;600;700;800;900&family=Overpass:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Serif:wght@100;200;300;400;500;600;700&family=Fira+Sans:wght@100;200;300;400;500;600;700;800;900&family=Karla:wght@200;300;400;500;600;700;800&family=Bungee+Shade&family=Comic+Neue:wght@300;400;700&family=Baloo+2:wght@400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&family=Varela+Round&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 /* Global Baseline Styling */
 * {
     font-family: "Segoe UI Variable Display", "Segoe UI", Inter, sans-serif;
@@ -55,6 +59,7 @@ body[data-theme="default-dark"] {
     --text-muted: #808080;
     --border-color: #404040;
 }
+
 body[data-theme="ocean-light"] {
     --accent-color: #1e90ff;
     --display-font: 'Outfit', sans-serif;
@@ -277,16 +282,16 @@ body[data-theme="ultracolourful"] {
 }
 
 body[data-theme="sunshine-light"] {
-    --accent-color: #fff700;
+    --accent-color: #facc15;
     --display-font: 'Baloo 2', cursive;
     --body-font: 'Quicksand', sans-serif;
-    --bg-primary: #fffef7;
-    --bg-secondary: #fef9c3;
-    --bg-tertiary: #fde047;
-    --text-primary: #5f370e;
-    --text-secondary: #975a16;
-    --text-muted: #ca8a04;
-    --border-color: #fde047;
+    --bg-primary: #fffdf5;
+    --bg-secondary: #fef6b2;
+    --bg-tertiary: #fcd34d;
+    --text-primary: #3b2904;
+    --text-secondary: #b45309;
+    --text-muted: #d97706;
+    --border-color: #facc15;
 }
 
 body[data-theme="sunshine-dark"] {
@@ -613,7 +618,7 @@ h6 {
         justify-content: flex-end;
         padding: 1rem;
     }
-    
+
     #themeModal .modal-content {
         max-width: 400px;
         width: auto;
@@ -629,21 +634,21 @@ h6 {
         max-height: 70vh;
         overflow-y: auto;
     }
-    
+
     .theme-card-grid {
         grid-template-columns: 1fr;
         gap: 0.75rem;
         margin-top: 1rem;
     }
-    
+
     .theme-card {
         min-height: 60px;
     }
-    
+
     .theme-card .theme-name {
         font-size: 1rem;
     }
-    
+
     .theme-card .theme-font-preview {
         font-size: 0.8rem;
     }
@@ -661,7 +666,7 @@ h6 {
         justify-content: center;
         padding: 1rem;
     }
-    
+
     #themeModal .modal-content {
         max-width: 95vw;
         width: 95vw;
@@ -677,7 +682,7 @@ h6 {
         max-height: 85vh;
         overflow-y: auto;
     }
-    
+
     .theme-card-grid {
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
         gap: 1rem;
