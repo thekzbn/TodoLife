@@ -49,9 +49,17 @@ function formatMonthYear(date) {
 }
 
 // Update all date displays
-function updateDateDisplays() {
-    // Daily view
-    document.getElementById('currentDate').textContent = formatDate(currentDate);
+async function updateDateDisplays() {
+    // Daily view - include tag if present
+    const dayData = await loadUserData(currentDate);
+    const currentDateElement = document.getElementById('currentDate');
+    const dateText = formatDate(currentDate);
+    
+    if (dayData && dayData.branding && dayData.branding.trim()) {
+        currentDateElement.innerHTML = `${dateText} <span class="daily-tag" onclick="editDailyTag()" title="Click to edit">${dayData.branding}</span>`;
+    } else {
+        currentDateElement.innerHTML = `${dateText} <span class="daily-tag-add" onclick="editDailyTag()" title="Click to add a tag">+ Add tag</span>`;
+    }
     
     // Weekly view
     if (!currentWeekStart) {
@@ -91,6 +99,31 @@ function changeWeek(direction) {
     currentWeekStart.setDate(currentWeekStart.getDate() + (direction * 7));
     loadWeeklyView();
     updateWeekDisplay();
+}
+
+// Edit daily tag function
+async function editDailyTag() {
+    const dayData = await loadUserData(currentDate);
+    const currentTag = (dayData && dayData.branding) ? dayData.branding : '';
+    
+    const newTag = prompt('Enter a special note for this day:', currentTag);
+    
+    if (newTag !== null) {  // null means cancelled
+        if (currentUser) {
+            await autoSave(currentDate, {
+                branding: newTag.trim(),
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+        // Update displays
+        updateDateDisplays();
+        if (currentView === 'weekly') {
+            loadWeeklyView();
+        }
+        if (currentView === 'monthly') {
+            loadMonthlyView();
+        }
+    }
 }
 
 function changeMonth(direction) {
@@ -376,12 +409,8 @@ async function loadDailyView() {
     const dayData = await loadUserData(currentDate);
     
     if (dayData) {
-        // Load branding
-        if (dayData.branding) {
-            document.getElementById('brandingInput').value = dayData.branding;
-        } else {
-            document.getElementById('brandingInput').value = '';
-        }
+        // Update date display to show tag
+        updateDateDisplays();
         
         // Load tasks
         const taskList = document.getElementById('taskList');
@@ -474,10 +503,7 @@ function createDayCard(date, dayData) {
     card.innerHTML = `
         <div class="day-name">${date.toLocaleDateString('en-US', { weekday: 'short' })}</div>
         <div class="day-date">${date.getDate()}</div>
-        <div class="day-indicators">
-            ${dayData && dayData.tasks && dayData.tasks.length > 0 ? '<div class="indicator tasks"></div>' : ''}
-            ${dayData && dayData.notes && dayData.notes.trim() ? '<div class="indicator notes"></div>' : ''}
-        </div>
+        ${dayData && dayData.branding && dayData.branding.trim() ? `<div class="day-tag">${dayData.branding}</div>` : ''}
     `;
     
     return card;
@@ -549,9 +575,10 @@ function createMonthDay(date, dayData) {
     }
     
     day.innerHTML = `
-        <div>${date.getDate()}</div>
-        ${dayData && dayData.tasks && dayData.tasks.length > 0 ? '<div class="indicator tasks"></div>' : ''}
-        ${dayData && dayData.notes && dayData.notes.trim() ? '<div class="indicator notes"></div>' : ''}
+        <div class="month-day-number">${date.getDate()}</div>
+        <div class="month-indicators">
+            ${dayData && dayData.branding && dayData.branding.trim() ? '<div class="indicator tag"></div>' : ''}
+        </div>
     `;
     
     return day;

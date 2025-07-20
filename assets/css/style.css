@@ -436,7 +436,7 @@ h6 {
 .modal-content button {
     width: 100%;
     padding: 1.25rem;
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     border: none;
     font-weight: 600;
@@ -464,7 +464,7 @@ h6 {
 .modal-content button:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-hover);
-    background: linear-gradient(135deg, var(--accent-color), #c49a54);
+    background: #c49a54;
 }
 
 .modal-content button:hover::before {
@@ -522,7 +522,7 @@ h6 {
 
 .app-title::before {
     content: "✓";
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     width: 3rem;
     height: 3rem;
@@ -574,7 +574,7 @@ h6 {
 }
 
 .icon-btn:hover {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     transform: translateY(-3px);
     box-shadow: var(--shadow-card-hover);
@@ -923,7 +923,7 @@ h6 {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
 }
 
 .nav-btn {
@@ -956,10 +956,15 @@ h6 {
 }
 
 .nav-btn:hover {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
-    color: white;
+    background: var(--accent-color) !important;
+    color: #ffffff !important;
     transform: scale(1.15);
     box-shadow: var(--shadow-hover);
+    opacity: 1 !important;
+}
+
+.nav-btn:hover .material-symbols-outlined {
+    color: #ffffff !important;
 }
 
 .nav-btn:hover::before {
@@ -976,6 +981,50 @@ h6 {
     flex: 1;
     font-weight: 600;
     font-family: var(--display-font);
+}
+
+.daily-tag {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: white;
+    background: var(--accent-color);
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin-left: 12px;
+    font-weight: 500;
+    vertical-align: middle;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: var(--body-font);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.daily-tag:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.daily-tag-add {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--bg-tertiary);
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin-left: 12px;
+    font-weight: 500;
+    vertical-align: middle;
+    border: 1px dashed var(--border-color);
+    font-family: var(--body-font);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.daily-tag-add:hover {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+    transform: scale(1.05);
 }
 
 /* Daily View */
@@ -996,7 +1045,6 @@ h6 {
 }
 
 .verse-section,
-.branding-section,
 .tasks-section,
 .notes-section {
     background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
@@ -1010,7 +1058,6 @@ h6 {
 }
 
 .verse-section::before,
-.branding-section::before,
 .tasks-section::before,
 .notes-section::before {
     content: "";
@@ -1019,14 +1066,13 @@ h6 {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s ease;
 }
 
 .verse-section:hover,
-.branding-section:hover,
 .tasks-section:hover,
 .notes-section:hover {
     box-shadow: var(--shadow-hover);
@@ -1034,7 +1080,6 @@ h6 {
 }
 
 .verse-section:hover::before,
-.branding-section:hover::before,
 .tasks-section:hover::before,
 .notes-section:hover::before {
     transform: scaleX(1);
@@ -1063,7 +1108,6 @@ h6 {
 
 /* Section Headers */
 .verse-section h3,
-.branding-section h3,
 .tasks-section h3,
 .notes-section h3 {
     margin-bottom: 1.5rem;
@@ -1078,10 +1122,6 @@ h6 {
     content: "📖";
 }
 
-.branding-section h3::before {
-    content: "💡";
-}
-
 .tasks-section h3::before {
     content: "✅";
 }
@@ -1090,27 +1130,7 @@ h6 {
     content: "📝";
 }
 
-/* Branding Section */
-.branding-input {
-    width: 100%;
-    padding: 1.25rem;
-    border: 2px solid var(--border-color);
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    font-family: var(--body-font);
-    text-align: center;
-    font-size: 1.15rem;
-    border-radius: var(--border-radius);
-    transition: all 0.3s ease;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-}
 
-.branding-input:focus {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 4px rgba(214, 173, 96, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
-    background: var(--bg-primary);
-}
 
 /* Tasks Section */
 .task-input-container {
@@ -1140,7 +1160,7 @@ h6 {
 }
 
 .add-btn {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     border: none;
     color: white;
     width: 3.5rem;
@@ -1171,7 +1191,7 @@ h6 {
 .add-btn:hover {
     transform: translateY(-3px) scale(1.05);
     box-shadow: var(--shadow-hover);
-    background: linear-gradient(135deg, var(--accent-color), #c49a54);
+    background: #c49a54;
 }
 
 .add-btn:hover::before {
@@ -1209,7 +1229,7 @@ h6 {
     top: 0;
     bottom: 0;
     width: 5px;
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     transform: scaleY(0);
     transition: transform 0.3s ease;
 }
@@ -1226,7 +1246,7 @@ h6 {
 }
 
 .task-item:hover {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     transform: translateX(12px) translateY(-2px);
     box-shadow: var(--shadow-card-hover);
@@ -1324,6 +1344,8 @@ h6 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .day-card:hover {
@@ -1347,6 +1369,13 @@ h6 {
     letter-spacing: 0.5px;
 }
 
+.day-main {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
 .day-date {
     font-size: 1.5rem;
     color: var(--accent-color);
@@ -1359,26 +1388,92 @@ h6 {
     color: white;
 }
 
+.day-tag {
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    font-weight: 500;
+    background: var(--bg-tertiary);
+    padding: 4px 8px;
+    border-radius: 8px;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.day-card:hover .day-tag {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--accent-color);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.day-card.selected .day-tag {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--accent-color);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
 .day-indicators {
-    margin-top: 0.75rem;
     display: flex;
-    justify-content: center;
     gap: 0.25rem;
+    align-items: center;
 }
 
 .indicator {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: var(--text-muted);
+    display: block;
 }
 
 .indicator.tasks {
     background: #28a745;
+    width: 8px;
+    height: 8px;
 }
 
 .indicator.notes {
     background: #ffc107;
+    width: 8px;
+    height: 8px;
+}
+
+/* Pill-style indicators */
+.indicator.pill {
+    border-radius: 12px;
+    padding: 3px 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+    background: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.indicator.branding.pill {
+    background: var(--accent-color);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.day-card:hover .indicator.branding.pill {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.day-card.selected .indicator.branding.pill {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--accent-color);
 }
 
 /* Main Day Section */
@@ -1443,6 +1538,28 @@ h6 {
     border-radius: var(--border-radius);
     transition: all 0.2s ease;
     font-weight: 500;
+    gap: 0.5rem;
+}
+
+.month-day-number {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.month-indicators {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
+
+.month-indicators .indicator.tag {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    transition: all 0.3s ease;
 }
 
 .month-day:hover,
@@ -1515,7 +1632,7 @@ h6 {
 }
 
 .view-btn:hover {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     transform: translateY(-2px);
     box-shadow: var(--shadow-card-hover);
@@ -1526,7 +1643,7 @@ h6 {
 }
 
 .view-btn.active {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     box-shadow: var(--shadow-card);
     transform: translateY(-1px);
@@ -1658,6 +1775,13 @@ h6 {
         text-align: center;
     }
 
+    .daily-tag,
+    .daily-tag-add {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+        margin-left: 8px;
+    }
+
     .nav-btn {
         width: 3rem;
         height: 3rem;
@@ -1674,7 +1798,12 @@ h6 {
         padding: 1rem;
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
         text-align: left;
+    }
+
+    .day-main {
+        gap: 0.5rem;
     }
 
     .day-name {
@@ -1684,6 +1813,12 @@ h6 {
 
     .day-date {
         font-size: 1.2rem;
+    }
+
+    .indicator.pill {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+        max-width: 60px;
     }
 
     .month-grid {
@@ -1724,7 +1859,6 @@ h6 {
     }
 
     .verse-section h3,
-    .branding-section h3,
     .tasks-section h3,
     .notes-section h3 {
         font-size: 1.2rem;
@@ -1798,6 +1932,13 @@ h6 {
         font-size: 1.1rem;
     }
 
+    .daily-tag,
+    .daily-tag-add {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+        margin-left: 6px;
+    }
+
     .nav-btn {
         width: 2.5rem;
         height: 2.5rem;
@@ -1805,14 +1946,12 @@ h6 {
     }
 
     .verse-section,
-    .branding-section,
     .tasks-section,
     .notes-section {
         padding: 1.5rem 1rem;
     }
 
     .verse-section h3,
-    .branding-section h3,
     .tasks-section h3,
     .notes-section h3 {
         font-size: 1.1rem;
@@ -1928,7 +2067,6 @@ h6 {
     }
 
     .verse-section,
-    .branding-section,
     .tasks-section,
     .notes-section {
         padding: 1rem 0.75rem;
@@ -1955,6 +2093,12 @@ h6 {
         padding: 0.5rem;
         flex-direction: column;
         text-align: center;
+        align-items: center;
+    }
+
+    .day-main {
+        gap: 0.25rem;
+        flex-wrap: wrap;
     }
 
     .day-name {
@@ -1963,6 +2107,12 @@ h6 {
 
     .day-date {
         font-size: 1rem;
+    }
+
+    .indicator.pill {
+        font-size: 0.55rem;
+        padding: 1px 4px;
+        max-width: 40px;
     }
 
     .month-day,
@@ -1993,9 +2143,7 @@ h6 {
 
 /* Ultra Colorful Theme Special Effects */
 body[data-theme="ultracolourful"] {
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dda0dd);
-    background-size: 400% 400%;
-    animation: gradientShift 10s ease infinite;
+    background: #ff6b6b;
 }
 
 @keyframes gradientShift {
@@ -2013,7 +2161,6 @@ body[data-theme="ultracolourful"] {
 }
 
 body[data-theme="ultracolourful"] .verse-section,
-body[data-theme="ultracolourful"] .branding-section,
 body[data-theme="ultracolourful"] .tasks-section,
 body[data-theme="ultracolourful"] .notes-section {
     backdrop-filter: blur(10px);
@@ -2043,7 +2190,7 @@ body[data-theme="ultracolourful"] .notes-section {
 .landing-page {
     min-height: 100vh;
     width: 100vw;
-    background: linear-gradient(120deg, var(--accent-color) 0%, var(--bg-primary) 100%);
+    background: var(--bg-primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2117,7 +2264,7 @@ body[data-theme="ultracolourful"] .notes-section {
 }
 
 .get-started-btn {
-    background: linear-gradient(135deg, var(--accent-color), #c49a54);
+    background: var(--accent-color);
     color: #fff;
     border: none;
     border-radius: var(--border-radius-lg);
@@ -2132,7 +2279,7 @@ body[data-theme="ultracolourful"] .notes-section {
 }
 
 .get-started-btn:hover {
-    background: linear-gradient(135deg, #222, var(--accent-color));
+    background: var(--accent-color);
     transform: translateY(-2px) scale(1.02);
     box-shadow: var(--shadow-hover);
 }
