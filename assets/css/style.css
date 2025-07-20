@@ -1395,22 +1395,37 @@ h6 {
 
 /* Pill-style indicators */
 .indicator.pill {
-    border-radius: 10px;
-    padding: 2px 6px;
+    border-radius: 12px;
+    padding: 3px 8px;
     font-size: 0.7rem;
     font-weight: 600;
     color: white;
-    min-width: 12px;
     text-align: center;
-    line-height: 1;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+    background: var(--accent-color);
+    transition: all 0.3s ease;
 }
 
-.indicator.tasks.pill {
-    background: #28a745;
+.indicator.branding.pill {
+    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.indicator.notes.pill {
-    background: #ffc107;
+.day-card:hover .indicator.branding.pill {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.day-card.selected .indicator.branding.pill {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--accent-color);
 }
 
 /* Main Day Section */
@@ -1725,8 +1740,8 @@ h6 {
 
     .indicator.pill {
         font-size: 0.6rem;
-        padding: 1px 4px;
-        min-width: 10px;
+        padding: 2px 6px;
+        max-width: 60px;
     }
 
     .month-grid {
@@ -2016,8 +2031,8 @@ h6 {
 
     .indicator.pill {
         font-size: 0.55rem;
-        padding: 1px 3px;
-        min-width: 8px;
+        padding: 1px 4px;
+        max-width: 40px;
     }
 
     .month-day,

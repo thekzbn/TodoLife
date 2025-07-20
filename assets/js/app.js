@@ -476,8 +476,7 @@ function createDayCard(date, dayData) {
         <div class="day-main">
             <div class="day-date">${date.getDate()}</div>
             <div class="day-indicators">
-                ${dayData && dayData.tasks && dayData.tasks.length > 0 ? '<div class="indicator tasks pill">T</div>' : ''}
-                ${dayData && dayData.notes && dayData.notes.trim() ? '<div class="indicator notes pill">N</div>' : ''}
+                ${dayData && dayData.branding && dayData.branding.trim() ? `<div class="indicator branding pill">${dayData.branding}</div>` : ''}
             </div>
         </div>
     `;
