@@ -107,8 +107,6 @@ body {
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     color: var(--text-primary);
     line-height: 1.6;
-    transition: all 0.3s ease;
-    overflow-x: hidden;
 }
 
 .container {
@@ -183,21 +181,24 @@ body {
     text-decoration: none;
     color: var(--text-secondary);
     font-weight: 500;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    border-radius: var(--border-radius-sm);
+    border-radius: 0;
     position: relative;
-    background:none !important;
+    background-image: linear-gradient(var(--accent-color), var(--accent-color));
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: 0% 0.1875rem !important;
+    transition: background-size 500ms ease-in-out;
+
 }
 
 .nav-link::before {
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: var(--border-radius-sm);
     background:none !important;
     padding: 1px;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -207,11 +208,9 @@ body {
 }
 
 .nav-link:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--accent-color);
-    text-underline-offset: 4px;
-    background:none !important;
-    text-decoration-thickness: 2px;
+    background-size: 100% 0.1875rem !important;
+    color: inherit;
+
 }
 
 .nav-link:hover::before {
