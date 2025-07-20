@@ -2143,7 +2143,9 @@ h6 {
 
 /* Ultra Colorful Theme Special Effects */
 body[data-theme="ultracolourful"] {
-    background: #ff6b6b;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dda0dd);
+    background-size: 400% 400%;
+    animation: gradientShift 10s ease infinite;
 }
 
 @keyframes gradientShift {
