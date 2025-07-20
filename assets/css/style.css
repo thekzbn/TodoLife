@@ -1324,6 +1324,7 @@ h6 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .day-card:hover {
@@ -1347,6 +1348,13 @@ h6 {
     letter-spacing: 0.5px;
 }
 
+.day-main {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
 .day-date {
     font-size: 1.5rem;
     color: var(--accent-color);
@@ -1360,24 +1368,48 @@ h6 {
 }
 
 .day-indicators {
-    margin-top: 0.75rem;
     display: flex;
-    justify-content: center;
     gap: 0.25rem;
+    align-items: center;
 }
 
 .indicator {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: var(--text-muted);
+    display: block;
 }
 
 .indicator.tasks {
     background: #28a745;
+    width: 8px;
+    height: 8px;
 }
 
 .indicator.notes {
+    background: #ffc107;
+    width: 8px;
+    height: 8px;
+}
+
+/* Pill-style indicators */
+.indicator.pill {
+    border-radius: 10px;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    min-width: 12px;
+    text-align: center;
+    line-height: 1;
+}
+
+.indicator.tasks.pill {
+    background: #28a745;
+}
+
+.indicator.notes.pill {
     background: #ffc107;
 }
 
@@ -1674,7 +1706,12 @@ h6 {
         padding: 1rem;
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
         text-align: left;
+    }
+
+    .day-main {
+        gap: 0.5rem;
     }
 
     .day-name {
@@ -1684,6 +1721,12 @@ h6 {
 
     .day-date {
         font-size: 1.2rem;
+    }
+
+    .indicator.pill {
+        font-size: 0.6rem;
+        padding: 1px 4px;
+        min-width: 10px;
     }
 
     .month-grid {
@@ -1955,6 +1998,12 @@ h6 {
         padding: 0.5rem;
         flex-direction: column;
         text-align: center;
+        align-items: center;
+    }
+
+    .day-main {
+        gap: 0.25rem;
+        flex-wrap: wrap;
     }
 
     .day-name {
@@ -1963,6 +2012,12 @@ h6 {
 
     .day-date {
         font-size: 1rem;
+    }
+
+    .indicator.pill {
+        font-size: 0.55rem;
+        padding: 1px 3px;
+        min-width: 8px;
     }
 
     .month-day,

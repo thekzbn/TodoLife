@@ -473,10 +473,12 @@ function createDayCard(date, dayData) {
     
     card.innerHTML = `
         <div class="day-name">${date.toLocaleDateString('en-US', { weekday: 'short' })}</div>
-        <div class="day-date">${date.getDate()}</div>
-        <div class="day-indicators">
-            ${dayData && dayData.tasks && dayData.tasks.length > 0 ? '<div class="indicator tasks"></div>' : ''}
-            ${dayData && dayData.notes && dayData.notes.trim() ? '<div class="indicator notes"></div>' : ''}
+        <div class="day-main">
+            <div class="day-date">${date.getDate()}</div>
+            <div class="day-indicators">
+                ${dayData && dayData.tasks && dayData.tasks.length > 0 ? '<div class="indicator tasks pill">T</div>' : ''}
+                ${dayData && dayData.notes && dayData.notes.trim() ? '<div class="indicator notes pill">N</div>' : ''}
+            </div>
         </div>
     `;
     
