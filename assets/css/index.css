@@ -190,7 +190,7 @@ body {
     padding: 8px 16px;
     border-radius: var(--border-radius-sm);
     position: relative;
-    background:none;
+    background:none !important;
 }
 
 .nav-link::before {
@@ -198,7 +198,7 @@ body {
     position: absolute;
     inset: 0;
     border-radius: var(--border-radius-sm);
-    background:none;
+    background:none !important;
     padding: 1px;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: xor;
@@ -210,12 +210,13 @@ body {
     text-decoration: underline;
     text-decoration-color: var(--accent-color);
     text-underline-offset: 4px;
-    background:none;
+    background:none !important;
     text-decoration-thickness: 2px;
 }
 
 .nav-link:hover::before {
     opacity: 1;
+    background:none !important;
 }
 
 .github-icon {
