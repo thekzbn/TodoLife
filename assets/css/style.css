@@ -712,7 +712,7 @@ h6 {
         box-shadow: var(--shadow-hover);
         margin: 0;
         position: relative;
-        padding: 1.5rem;
+        padding: 3rem 1.5rem 1.5rem 1.5rem;
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -760,7 +760,7 @@ h6 {
         box-shadow: var(--shadow-hover);
         margin: 0;
         position: relative;
-        padding: 1.5rem 1rem;
+        padding: 2.5rem 1rem 1.5rem 1rem;
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -799,8 +799,8 @@ h6 {
 
 .modal-close-btn {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 1.5rem;
+    right: 1.5rem;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
@@ -813,7 +813,7 @@ h6 {
     cursor: pointer;
     font-size: 1.2rem;
     transition: all 0.2s ease;
-    z-index: 10;
+    z-index: 100;
 }
 
 .modal-close-btn:hover {
@@ -826,7 +826,7 @@ h6 {
     #themeModal .modal-content {
         max-width: 98vw;
         width: 98vw;
-        padding: 1.5rem 1rem;
+        padding: 2.5rem 1rem 1.5rem 1rem;
         margin: 1rem auto;
     }
 
@@ -858,8 +858,8 @@ h6 {
 
     .modal-close-btn {
         font-size: 1.5rem;
-        top: 0.5rem;
-        right: 0.5rem;
+        top: 1rem;
+        right: 1rem;
         width: 2rem;
         height: 2rem;
     }
