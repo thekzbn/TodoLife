@@ -436,7 +436,7 @@ h6 {
 .modal-content button {
     width: 100%;
     padding: 1.25rem;
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     border: none;
     font-weight: 600;
@@ -464,7 +464,7 @@ h6 {
 .modal-content button:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-hover);
-    background: linear-gradient(135deg, var(--accent-color), #c49a54);
+    background: #c49a54;
 }
 
 .modal-content button:hover::before {
@@ -574,7 +574,7 @@ h6 {
 }
 
 .icon-btn:hover {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     transform: translateY(-3px);
     box-shadow: var(--shadow-card-hover);
@@ -956,7 +956,7 @@ h6 {
 }
 
 .nav-btn:hover {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     transform: scale(1.15);
     box-shadow: var(--shadow-hover);
@@ -982,7 +982,7 @@ h6 {
     display: inline-block;
     font-size: 0.9rem;
     color: white;
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     padding: 4px 12px;
     border-radius: 12px;
     margin-left: 12px;
@@ -1061,7 +1061,7 @@ h6 {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s ease;
@@ -1155,7 +1155,7 @@ h6 {
 }
 
 .add-btn {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     border: none;
     color: white;
     width: 3.5rem;
@@ -1186,7 +1186,7 @@ h6 {
 .add-btn:hover {
     transform: translateY(-3px) scale(1.05);
     box-shadow: var(--shadow-hover);
-    background: linear-gradient(135deg, var(--accent-color), #c49a54);
+    background: #c49a54;
 }
 
 .add-btn:hover::before {
@@ -1224,7 +1224,7 @@ h6 {
     top: 0;
     bottom: 0;
     width: 5px;
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     transform: scaleY(0);
     transition: transform 0.3s ease;
 }
@@ -1241,7 +1241,7 @@ h6 {
 }
 
 .task-item:hover {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     transform: translateX(12px) translateY(-2px);
     box-shadow: var(--shadow-card-hover);
@@ -1454,7 +1454,7 @@ h6 {
 }
 
 .indicator.branding.pill {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     font-weight: 600;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -1627,7 +1627,7 @@ h6 {
 }
 
 .view-btn:hover {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     transform: translateY(-2px);
     box-shadow: var(--shadow-card-hover);
@@ -1638,7 +1638,7 @@ h6 {
 }
 
 .view-btn.active {
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     box-shadow: var(--shadow-card);
     transform: translateY(-1px);
