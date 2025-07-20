@@ -957,10 +957,14 @@ h6 {
 
 .nav-btn:hover {
     background: var(--accent-color) !important;
-    color: white !important;
+    color: #ffffff !important;
     transform: scale(1.15);
     box-shadow: var(--shadow-hover);
     opacity: 1 !important;
+}
+
+.nav-btn:hover .material-symbols-outlined {
+    color: #ffffff !important;
 }
 
 .nav-btn:hover::before {
