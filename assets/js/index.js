@@ -2,22 +2,15 @@
 document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
-    const navActions = document.querySelector('.nav-actions');
+    const navBackdrop = document.getElementById('nav-backdrop');
 
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
-            const isActive = navMenu.classList.contains('active');
-            
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
-            
-            // Toggle nav-actions visibility on mobile
-            if (navActions) {
-                navActions.classList.toggle('mobile-visible');
+            if (navBackdrop) {
+                navBackdrop.classList.toggle('active');
             }
-            
-            // Toggle body scroll lock
-            document.body.classList.toggle('nav-open', !isActive);
         });
     }
 
@@ -25,10 +18,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeMobileMenu() {
         navMenu.classList.remove('active');
         hamburger.classList.remove('active');
-        document.body.classList.remove('nav-open');
-        if (navActions) {
-            navActions.classList.remove('mobile-visible');
+        if (navBackdrop) {
+            navBackdrop.classList.remove('active');
         }
+    }
+
+    // Close menu when clicking backdrop
+    if (navBackdrop) {
+        navBackdrop.addEventListener('click', closeMobileMenu);
     }
 
     // Close mobile menu when clicking on a link
@@ -39,9 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Close mobile menu when clicking outside
     document.addEventListener('click', function(event) {
-        const isClickInsideNav = navMenu.contains(event.target) || 
-                                hamburger.contains(event.target) || 
-                                (navActions && navActions.contains(event.target));
+        const isClickInsideNav = navMenu.contains(event.target) || hamburger.contains(event.target);
         
         if (!isClickInsideNav && navMenu.classList.contains('active')) {
             closeMobileMenu();
