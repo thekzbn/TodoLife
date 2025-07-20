@@ -206,10 +206,10 @@ body {
 }
 
 .nav-link:hover {
-    color: #ffffff !important;
-    background: var(--accent-color) !important;
-    transform: translateY(-2px);
-    opacity: 1 !important;
+    text-decoration: underline;
+    text-decoration-color: var(--accent-color);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
 }
 
 .nav-link:hover::before {
