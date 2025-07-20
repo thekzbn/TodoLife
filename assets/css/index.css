@@ -183,13 +183,17 @@ body {
     text-decoration: none;
     color: var(--text-secondary);
     font-weight: 500;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
     border-radius: var(--border-radius-sm);
     position: relative;
+    background-image: linear-gradient(var(--accent-color), var(--accent-color));
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: 0% 3px;
+    transition: background-size 500ms ease-in-out;
 }
 
 .nav-link::before {
@@ -206,10 +210,8 @@ body {
 }
 
 .nav-link:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--accent-color);
-    text-underline-offset: 4px;
-    text-decoration-thickness: 2px;
+    background-size: 100% 3px;
+    color: inherit;
 }
 
 .nav-link:hover::before {
