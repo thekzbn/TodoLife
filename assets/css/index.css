@@ -1315,26 +1315,69 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .container,
+    .nav-container,
+    .hero-container {
+        padding: 0 40px;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 32px;
+    }
+}
+
 @media (max-width: 1024px) {
     .hero-container {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 60px;
         text-align: center;
+    }
+
+    .hero-title {
+        font-size: 3.2rem;
     }
 
     .theme-selector {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 50px;
     }
 
     .theme-options {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        gap: 16px;
+    }
+
+    .theme-option {
+        flex: 1;
+        min-width: 280px;
+        max-width: 300px;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .step {
+        grid-template-columns: auto 1fr;
+        gap: 24px;
     }
 }
 
 @media (max-width: 768px) {
+    .container,
+    .nav-container,
+    .hero-container {
+        padding: 0 24px;
+    }
+
+    .nav-container {
+        height: 70px;
+    }
 
     .nav-menu,
     .nav-actions {
@@ -1345,22 +1388,70 @@ body {
         display: flex;
     }
 
+    .hero {
+        padding: 120px 0 80px;
+    }
+
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
     }
 
     .hero-actions {
         flex-direction: column;
         align-items: center;
+        gap: 16px;
     }
 
     .hero-stats {
         justify-content: center;
-        gap: 30px;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .stat {
+        min-width: 100px;
+        padding: 20px;
+    }
+
+    .section-title {
+        font-size: 2.4rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .features {
+        padding: 100px 0;
     }
 
     .features-grid {
         grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .feature-card {
+        padding: 32px 24px;
+    }
+
+    .theme-options {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .theme-option {
+        flex: none;
+        min-width: auto;
+        max-width: none;
+    }
+
+    .showcase-window {
+        max-width: 90%;
     }
 
     .step {
@@ -1372,6 +1463,12 @@ body {
     .cta-actions {
         flex-direction: column;
         align-items: center;
+        gap: 16px;
+    }
+
+    .community-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
     }
 
     .footer-content {
@@ -1380,8 +1477,8 @@ body {
     }
 
     .footer-links {
-        grid-template-columns: 1fr;
-        gap: 30px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
     }
 
     .footer-bottom {
@@ -1392,8 +1489,25 @@ body {
 }
 
 @media (max-width: 480px) {
-    .container {
+    .container,
+    .nav-container,
+    .hero-container {
         padding: 0 16px;
+    }
+
+    .nav-container {
+        height: 60px;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .nav-brand {
+        font-size: 20px;
+        gap: 12px;
     }
 
     .hero {
@@ -1401,19 +1515,180 @@ body {
     }
 
     .hero-title {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        margin-bottom: 24px;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 32px;
+    }
+
+    .hero-actions {
+        gap: 12px;
+    }
+
+    .btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .btn-large {
+        padding: 14px 24px;
+        font-size: 15px;
+    }
+
+    .hero-stats {
+        gap: 16px;
+    }
+
+    .stat {
+        min-width: 80px;
+        padding: 16px 12px;
+    }
+
+    .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .stat-label {
+        font-size: 12px;
     }
 
     .section-title {
         font-size: 2rem;
+        margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    .features,
+    .themes-preview,
+    .getting-started,
+    .community {
+        padding: 80px 0;
+    }
+
+    .section-header {
+        margin-bottom: 60px;
+    }
+
+    .feature-card {
+        padding: 24px 20px;
+    }
+
+    .feature-icon {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+    }
+
+    .feature-title {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+    }
+
+    .feature-description {
+        font-size: 1rem;
+    }
+
+    .theme-preview {
+        width: 60px;
+        height: 40px;
+    }
+
+    .theme-name {
+        font-size: 1rem;
+    }
+
+    .showcase-window {
+        max-width: 95%;
+    }
+
+    .app-preview {
+        max-width: 100%;
+    }
+
+    .app-content {
+        padding: 24px 20px;
+    }
+
+    .verse-section {
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+
+    .verse-text {
+        font-size: 1rem;
     }
 
     .cta-section {
         padding: 40px 20px;
     }
 
-    .theme-options {
+    .cta-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .cta-content p {
+        font-size: 1.1rem;
+        margin-bottom: 24px;
+    }
+
+    .community-card {
+        padding: 24px 20px;
+    }
+
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .footer {
+        padding: 60px 0 30px;
+    }
+}
+
+@media (max-width: 360px) {
+    .container,
+    .nav-container,
+    .hero-container {
+        padding: 0 12px;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .hero-stats {
         flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .stat {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .theme-option {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .theme-preview {
+        width: 50px;
+        height: 35px;
     }
 }
 
