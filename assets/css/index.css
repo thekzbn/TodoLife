@@ -185,7 +185,7 @@ body {
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    border-radius: var(--border-radius-sm);
+    border-radius: 0;
     position: relative;
     background-image: linear-gradient(var(--accent-color), var(--accent-color));
     background-repeat: no-repeat;
@@ -199,7 +199,6 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: var(--border-radius-sm);
     background:none !important;
     padding: 1px;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
