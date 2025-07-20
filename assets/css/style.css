@@ -990,6 +990,36 @@ h6 {
     vertical-align: middle;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-family: var(--body-font);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.daily-tag:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.daily-tag-add {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--bg-tertiary);
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin-left: 12px;
+    font-weight: 500;
+    vertical-align: middle;
+    border: 1px dashed var(--border-color);
+    font-family: var(--body-font);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.daily-tag-add:hover {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+    transform: scale(1.05);
 }
 
 /* Daily View */
@@ -1010,7 +1040,6 @@ h6 {
 }
 
 .verse-section,
-.branding-section,
 .tasks-section,
 .notes-section {
     background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
@@ -1024,7 +1053,6 @@ h6 {
 }
 
 .verse-section::before,
-.branding-section::before,
 .tasks-section::before,
 .notes-section::before {
     content: "";
@@ -1040,7 +1068,6 @@ h6 {
 }
 
 .verse-section:hover,
-.branding-section:hover,
 .tasks-section:hover,
 .notes-section:hover {
     box-shadow: var(--shadow-hover);
@@ -1048,7 +1075,6 @@ h6 {
 }
 
 .verse-section:hover::before,
-.branding-section:hover::before,
 .tasks-section:hover::before,
 .notes-section:hover::before {
     transform: scaleX(1);
@@ -1077,7 +1103,6 @@ h6 {
 
 /* Section Headers */
 .verse-section h3,
-.branding-section h3,
 .tasks-section h3,
 .notes-section h3 {
     margin-bottom: 1.5rem;
@@ -1092,10 +1117,6 @@ h6 {
     content: "📖";
 }
 
-.branding-section h3::before {
-    content: "💡";
-}
-
 .tasks-section h3::before {
     content: "✅";
 }
@@ -1104,27 +1125,7 @@ h6 {
     content: "📝";
 }
 
-/* Branding Section */
-.branding-input {
-    width: 100%;
-    padding: 1.25rem;
-    border: 2px solid var(--border-color);
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    font-family: var(--body-font);
-    text-align: center;
-    font-size: 1.15rem;
-    border-radius: var(--border-radius);
-    transition: all 0.3s ease;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-}
 
-.branding-input:focus {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 4px rgba(214, 173, 96, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
-    background: var(--bg-primary);
-}
 
 /* Tasks Section */
 .task-input-container {
@@ -1769,7 +1770,8 @@ h6 {
         text-align: center;
     }
 
-    .daily-tag {
+    .daily-tag,
+    .daily-tag-add {
         font-size: 0.75rem;
         padding: 3px 8px;
         margin-left: 8px;
@@ -1852,7 +1854,6 @@ h6 {
     }
 
     .verse-section h3,
-    .branding-section h3,
     .tasks-section h3,
     .notes-section h3 {
         font-size: 1.2rem;
@@ -1926,7 +1927,8 @@ h6 {
         font-size: 1.1rem;
     }
 
-    .daily-tag {
+    .daily-tag,
+    .daily-tag-add {
         font-size: 0.7rem;
         padding: 2px 6px;
         margin-left: 6px;
@@ -1939,14 +1941,12 @@ h6 {
     }
 
     .verse-section,
-    .branding-section,
     .tasks-section,
     .notes-section {
         padding: 1.5rem 1rem;
     }
 
     .verse-section h3,
-    .branding-section h3,
     .tasks-section h3,
     .notes-section h3 {
         font-size: 1.1rem;
@@ -2062,7 +2062,6 @@ h6 {
     }
 
     .verse-section,
-    .branding-section,
     .tasks-section,
     .notes-section {
         padding: 1rem 0.75rem;
@@ -2159,7 +2158,6 @@ body[data-theme="ultracolourful"] {
 }
 
 body[data-theme="ultracolourful"] .verse-section,
-body[data-theme="ultracolourful"] .branding-section,
 body[data-theme="ultracolourful"] .tasks-section,
 body[data-theme="ultracolourful"] .notes-section {
     backdrop-filter: blur(10px);

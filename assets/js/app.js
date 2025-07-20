@@ -56,9 +56,9 @@ async function updateDateDisplays() {
     const dateText = formatDate(currentDate);
     
     if (dayData && dayData.branding && dayData.branding.trim()) {
-        currentDateElement.innerHTML = `${dateText} <span class="daily-tag">${dayData.branding}</span>`;
+        currentDateElement.innerHTML = `${dateText} <span class="daily-tag" onclick="editDailyTag()" title="Click to edit">${dayData.branding}</span>`;
     } else {
-        currentDateElement.textContent = dateText;
+        currentDateElement.innerHTML = `${dateText} <span class="daily-tag-add" onclick="editDailyTag()" title="Click to add a tag">+ Add tag</span>`;
     }
     
     // Weekly view
@@ -99,6 +99,31 @@ function changeWeek(direction) {
     currentWeekStart.setDate(currentWeekStart.getDate() + (direction * 7));
     loadWeeklyView();
     updateWeekDisplay();
+}
+
+// Edit daily tag function
+async function editDailyTag() {
+    const dayData = await loadUserData(currentDate);
+    const currentTag = (dayData && dayData.branding) ? dayData.branding : '';
+    
+    const newTag = prompt('Enter a special note for this day:', currentTag);
+    
+    if (newTag !== null) {  // null means cancelled
+        if (currentUser) {
+            await autoSave(currentDate, {
+                branding: newTag.trim(),
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+        // Update displays
+        updateDateDisplays();
+        if (currentView === 'weekly') {
+            loadWeeklyView();
+        }
+        if (currentView === 'monthly') {
+            loadMonthlyView();
+        }
+    }
 }
 
 function changeMonth(direction) {
@@ -384,13 +409,6 @@ async function loadDailyView() {
     const dayData = await loadUserData(currentDate);
     
     if (dayData) {
-        // Load branding
-        if (dayData.branding) {
-            document.getElementById('brandingInput').value = dayData.branding;
-        } else {
-            document.getElementById('brandingInput').value = '';
-        }
-        
         // Update date display to show tag
         updateDateDisplays();
         

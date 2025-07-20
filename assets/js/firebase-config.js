@@ -259,16 +259,7 @@ function initializeApp() {
 
 // Setup auto-save event listeners
 function setupEventListeners() {
-    // Branding input auto-save
-    const brandingInput = document.getElementById('brandingInput');
-    brandingInput.addEventListener('input', () => {
-        autoSave(currentDate, {
-            branding: brandingInput.value,
-            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        // Update date display to show new tag
-        updateDateDisplays();
-    });
+
     
     // Learning notes auto-save
     const learningNotes = document.getElementById('learningNotes');
