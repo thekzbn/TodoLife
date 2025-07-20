@@ -1440,20 +1440,28 @@ body {
         transform: translateX(0);
     }
 
-    .nav-link {
+    .nav-menu .nav-link {
         font-size: 1rem;
         padding: 1rem 2rem;
         border: none;
         background: transparent;
         border-bottom: 1px solid var(--border-color);
         text-align: left;
-        color: var(--text-primary);
+        color: var(--text-primary) !important;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
     }
 
-    .nav-link:hover {
-        background: var(--bg-secondary);
-        color: var(--accent-color);
-        transform: none;
+    .nav-menu .nav-link::before {
+        display: none;
+    }
+
+    .nav-menu .nav-link:hover {
+        background: var(--bg-secondary) !important;
+        color: var(--accent-color) !important;
+        transform: none !important;
+        text-decoration: none;
     }
 
     .nav-actions {
