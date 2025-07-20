@@ -107,8 +107,6 @@ body {
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     color: var(--text-primary);
     line-height: 1.6;
-    transition: all 0.3s ease;
-    overflow-x: hidden;
 }
 
 .container {
@@ -192,8 +190,9 @@ body {
     background-image: linear-gradient(var(--accent-color), var(--accent-color));
     background-repeat: no-repeat;
     background-position: bottom left;
-    background-size: 0% 3px;
+    background-size: 0% 0.1875rem !important;
     transition: background-size 500ms ease-in-out;
+
 }
 
 .nav-link::before {
@@ -201,7 +200,7 @@ body {
     position: absolute;
     inset: 0;
     border-radius: var(--border-radius-sm);
-    background: var(--accent-color);
+    background:none !important;
     padding: 1px;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: xor;
@@ -210,12 +209,14 @@ body {
 }
 
 .nav-link:hover {
-    background-size: 100% 3px;
+    background-size: 100% 0.1875rem !important;
     color: inherit;
+
 }
 
 .nav-link:hover::before {
     opacity: 1;
+    background:none !important;
 }
 
 .github-icon {
