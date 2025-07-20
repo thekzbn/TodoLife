@@ -522,7 +522,7 @@ h6 {
 
 .app-title::before {
     content: "✓";
-    background: linear-gradient(135deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
     color: white;
     width: 3rem;
     height: 3rem;
@@ -923,7 +923,7 @@ h6 {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--accent-color), #ffd700);
+    background: var(--accent-color);
 }
 
 .nav-btn {
@@ -2138,9 +2138,7 @@ h6 {
 
 /* Ultra Colorful Theme Special Effects */
 body[data-theme="ultracolourful"] {
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dda0dd);
-    background-size: 400% 400%;
-    animation: gradientShift 10s ease infinite;
+    background: #ff6b6b;
 }
 
 @keyframes gradientShift {
@@ -2187,7 +2185,7 @@ body[data-theme="ultracolourful"] .notes-section {
 .landing-page {
     min-height: 100vh;
     width: 100vw;
-    background: linear-gradient(120deg, var(--accent-color) 0%, var(--bg-primary) 100%);
+    background: var(--bg-primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2261,7 +2259,7 @@ body[data-theme="ultracolourful"] .notes-section {
 }
 
 .get-started-btn {
-    background: linear-gradient(135deg, var(--accent-color), #c49a54);
+    background: var(--accent-color);
     color: #fff;
     border: none;
     border-radius: var(--border-radius-lg);
@@ -2276,7 +2274,7 @@ body[data-theme="ultracolourful"] .notes-section {
 }
 
 .get-started-btn:hover {
-    background: linear-gradient(135deg, #222, var(--accent-color));
+    background: var(--accent-color);
     transform: translateY(-2px) scale(1.02);
     box-shadow: var(--shadow-hover);
 }
