@@ -206,8 +206,8 @@ body {
 }
 
 .nav-link:hover {
-    color: var(--accent-color) !important;
-    background: var(--bg-secondary) !important;
+    color: #ffffff !important;
+    background: var(--accent-color) !important;
     transform: translateY(-2px);
     opacity: 1 !important;
 }
