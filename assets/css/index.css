@@ -206,9 +206,10 @@ body {
 }
 
 .nav-link:hover {
-    color: var(--accent-color);
-    background: var(--bg-secondary);
+    color: var(--accent-color) !important;
+    background: var(--bg-secondary) !important;
     transform: translateY(-2px);
+    opacity: 1 !important;
 }
 
 .nav-link:hover::before {
