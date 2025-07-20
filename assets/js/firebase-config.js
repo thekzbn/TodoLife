@@ -266,6 +266,8 @@ function setupEventListeners() {
             branding: brandingInput.value,
             lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
         });
+        // Update date display to show new tag
+        updateDateDisplays();
     });
     
     // Learning notes auto-save

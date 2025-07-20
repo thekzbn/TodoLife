@@ -49,9 +49,17 @@ function formatMonthYear(date) {
 }
 
 // Update all date displays
-function updateDateDisplays() {
-    // Daily view
-    document.getElementById('currentDate').textContent = formatDate(currentDate);
+async function updateDateDisplays() {
+    // Daily view - include tag if present
+    const dayData = await loadUserData(currentDate);
+    const currentDateElement = document.getElementById('currentDate');
+    const dateText = formatDate(currentDate);
+    
+    if (dayData && dayData.branding && dayData.branding.trim()) {
+        currentDateElement.innerHTML = `${dateText} <span class="daily-tag">${dayData.branding}</span>`;
+    } else {
+        currentDateElement.textContent = dateText;
+    }
     
     // Weekly view
     if (!currentWeekStart) {
@@ -383,6 +391,9 @@ async function loadDailyView() {
             document.getElementById('brandingInput').value = '';
         }
         
+        // Update date display to show tag
+        updateDateDisplays();
+        
         // Load tasks
         const taskList = document.getElementById('taskList');
         taskList.innerHTML = '';
@@ -473,12 +484,8 @@ function createDayCard(date, dayData) {
     
     card.innerHTML = `
         <div class="day-name">${date.toLocaleDateString('en-US', { weekday: 'short' })}</div>
-        <div class="day-main">
-            <div class="day-date">${date.getDate()}</div>
-            <div class="day-indicators">
-                ${dayData && dayData.branding && dayData.branding.trim() ? `<div class="indicator branding pill">${dayData.branding}</div>` : ''}
-            </div>
-        </div>
+        <div class="day-date">${date.getDate()}</div>
+        ${dayData && dayData.branding && dayData.branding.trim() ? `<div class="day-tag">${dayData.branding}</div>` : ''}
     `;
     
     return card;
@@ -550,9 +557,10 @@ function createMonthDay(date, dayData) {
     }
     
     day.innerHTML = `
-        <div>${date.getDate()}</div>
-        ${dayData && dayData.tasks && dayData.tasks.length > 0 ? '<div class="indicator tasks"></div>' : ''}
-        ${dayData && dayData.notes && dayData.notes.trim() ? '<div class="indicator notes"></div>' : ''}
+        <div class="month-day-number">${date.getDate()}</div>
+        <div class="month-indicators">
+            ${dayData && dayData.branding && dayData.branding.trim() ? '<div class="indicator tag"></div>' : ''}
+        </div>
     `;
     
     return day;
