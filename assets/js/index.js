@@ -2,21 +2,52 @@
 document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
+    const navBackdrop = document.getElementById('nav-backdrop');
 
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function () {
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
+            if (navBackdrop) {
+                navBackdrop.classList.toggle('active');
+            }
         });
+    }
+
+    // Helper function to close mobile menu
+    function closeMobileMenu() {
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+        if (navBackdrop) {
+            navBackdrop.classList.remove('active');
+        }
+    }
+
+    // Close menu when clicking backdrop
+    if (navBackdrop) {
+        navBackdrop.addEventListener('click', closeMobileMenu);
     }
 
     // Close mobile menu when clicking on a link
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-        });
+        link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const isClickInsideNav = navMenu.contains(event.target) || hamburger.contains(event.target);
+        
+        if (!isClickInsideNav && navMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+
+    // Close mobile menu on escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
     });
 
     // Theme Switcher

@@ -233,6 +233,7 @@ body {
     padding: 8px;
     border-radius: var(--border-radius-sm);
     transition: all 0.3s ease;
+    z-index: 1001;
 }
 
 .hamburger:hover {
@@ -243,8 +244,23 @@ body {
     width: 28px;
     height: 3px;
     background: var(--text-primary);
-    transition: 0.3s;
+    transition: all 0.3s ease;
     border-radius: 2px;
+    transform-origin: center;
+}
+
+/* Hamburger Animation */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* Buttons */
@@ -1377,11 +1393,93 @@ body {
 
     .nav-container {
         height: 70px;
+        position: relative;
     }
 
-    .nav-menu,
-    .nav-actions {
+    /* Mobile menu backdrop */
+    .nav-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .nav-backdrop.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        right: 0;
+        width: 300px;
+        height: calc(100vh - 70px);
+        background: var(--bg-primary);
+        border-left: 1px solid var(--border-color);
+        box-shadow: var(--shadow-hover);
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: 2rem 0;
+        gap: 0;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .nav-menu.active {
+        transform: translateX(0);
+    }
+
+    .nav-menu .nav-link {
+        font-size: 1rem;
+        padding: 1rem 2rem;
+        border: none;
+        background: transparent;
+        border-bottom: 1px solid var(--border-color);
+        text-align: left;
+        color: var(--text-primary) !important;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .nav-menu .nav-link::before {
         display: none;
+    }
+
+    .nav-menu .nav-link:hover {
+        background: var(--bg-secondary) !important;
+        color: var(--accent-color) !important;
+        transform: none !important;
+        text-decoration: none;
+    }
+
+    .nav-actions {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 2rem;
+        border-top: 1px solid var(--border-color);
+        margin-top: auto;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease 0.1s;
+    }
+
+    .nav-menu.active .nav-actions {
+        opacity: 1;
+        pointer-events: auto;
     }
 
     .hamburger {
@@ -1497,6 +1595,10 @@ body {
 
     .nav-container {
         height: 60px;
+    }
+
+    .nav-menu {
+        width: 280px;
     }
 
     .logo {
