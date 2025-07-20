@@ -995,6 +995,17 @@ body {
     color: var(--text-muted);
 }
 
+.preview-task:hover {
+    background: none !important;
+    color: inherit !important;
+    transform: none !important;
+}
+
+.preview-task:hover span {
+    color: inherit !important;
+    background: none !important;
+}
+
 /* Getting Started Section */
 .getting-started {
     padding: 120px 0;
