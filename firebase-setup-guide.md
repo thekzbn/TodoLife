@@ -31,17 +31,7 @@ Welcome to the open-source TodoLife project! This guide will help you set up Fir
 5. Paste it into `firebase-config.js`
 
 ## 5. Set Firestore Security Rules
-Replace the default rules with:
-```javascript
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-  }
-}
-```
+Replace the default rules with your preferred rule set.
 
 ## 6. Run the App Locally
 - Use a local server (e.g., `python -m http.server 8000`)
